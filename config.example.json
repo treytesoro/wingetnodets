@@ -1,0 +1,32 @@
+
+{
+    "Server": {
+        "@serverID_description": "Consider this value immutable once you set it.",
+        "serverID": "DevTest",
+
+        "@supportedApiVersions_description": "This array returns the current API versions we are supporting.",
+        "supportedApiVersions":  [
+            "1.0.0",
+            "1.1.0"
+        ],
+
+        "WebConfig": {
+            "httpPort": 7070,
+            "httpsPort": 7071,
+            
+            "SSL": {
+                "@private_key_description": "The relative path to the server's private key (key, pem, etc...)",
+                "privatekey": "noclone/server.key",
+
+                "@certificate_description": "The relative path to the server's certificate (key, pem, etc...)",
+                "publickey": "noclone/server.crt"
+            }
+        }
+    },
+
+    "@MongoConnectString_description": "",
+    "MongoConnectString": "mongodb://root:example@127.0.0.1:27017/",
+
+    "@PackagesPath_description": "For dev/test, This is the absolute path to the packages we're serving.",
+    "PackagesPath": "D:/Winget/packages"
+}

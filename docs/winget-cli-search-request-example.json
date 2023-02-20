@@ -1,0 +1,6 @@
+{
+    "Query": {
+        "KeyWord": "somestuff",
+        "MatchType": "Substring"
+    }
+}

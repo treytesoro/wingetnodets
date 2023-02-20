@@ -1,0 +1,39 @@
+{
+	"Inclusions": [
+		{
+			"PackageMatchField": "PackageFamilyName",
+			"RequestMatch": {
+				"KeyWord": "somestuff",
+				"MatchType": "Exact"
+			}
+		},
+		{
+			"PackageMatchField": "ProductCode",
+			"RequestMatch": {
+				"KeyWord": "somestuff",
+				"MatchType": "Exact"
+			}
+		},
+		{
+			"PackageMatchField": "PackageIdentifier",
+			"RequestMatch": {
+				"KeyWord": "somestuff",
+				"MatchType": "CaseInsensitive"
+			}
+		},
+		{
+			"PackageMatchField": "PackageName",
+			"RequestMatch": {
+				"KeyWord": "somestuff",
+				"MatchType": "CaseInsensitive"
+			}
+		},
+		{
+			"PackageMatchField": "Moniker",
+			"RequestMatch": {
+				"KeyWord": "somestuff",
+				"MatchType": "CaseInsensitive"
+			}
+		}
+	]
+}
