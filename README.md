@@ -3,7 +3,9 @@
 ## Introduction
 This is a NodeJS/MongoDB Proof of Concept implementation of the Winget Restsource reference code.
 
-This code is very much alpha.
+This project is in early development.  Not all possible winget cli options have been implemented.
+
+If you are wondering if this will ever work with Intune and its method of using winget, then likely no. Intune is currently only supporting msstore hosted applications.  To pull packages from a private winget repository with Intune, you would need create a legacy app to deploy a script which runs the winget command.
 
 Please refer to the following for more information on the official reference implementation:
 1. [winget-cli-restsource](https://github.com/microsoft/winget-cli-restsource)
@@ -14,13 +16,13 @@ Please refer to the following for more information on the official reference imp
 ## REST API project and MongoDB configuration
 
 ### WebServer
-You will need a signed certificate for your REST webserver. Winget will not allow HTTP rest endpoints. InstallerURLs can be regular http.
+You will need a signed certificate for your REST webserver. Winget will not allow HTTP rest endpoints. InstallerURLs can be served over regular http.
 
 You will need to create a directory at the root of the project named `noclone`.  Copy the [a config.example.json](./config.example.json) to this directory and rename to `config.json`. Edit the fields for your environment.
 
 --
 
-There is still much to work on, but simple searching and installing seem to function well. Searching with the filters `--name`, `--tag`, `--exact` are implemented but may return unexpected results. I'll work on --query last once I finish with all the filters.
+Searching with the filters `--name`, `--tag`, `--exact` are implemented but may return unexpected results. A Search query using `--query` is currently not implemented.
 
 ### MongoDB
 The only requirement here is an accessible Mongo instance with a database named "winget".<br/>

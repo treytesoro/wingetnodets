@@ -5,6 +5,9 @@ import * as fs from 'fs';
 
 const ISDEBUG=false;
 
+/**
+ * The server data is returned from the /information endpoint
+ */
 interface ServerData {
     /**
      * A server data object should contain a source id a supported version array
@@ -21,11 +24,18 @@ interface ServerData {
      }
 }
 
+/**
+ * A Query for simple searches
+ */
 interface Query {
     KeyWord:string;
-    MatchType:"Exact"|"Substring";
+    MatchType:"Exact"|"Substring"|undefined;
 }
 
+/**
+ * RequestMatch contains the same properties
+ * as a Query. This type is used in Inclusions and Filters
+ */
 interface RequestMatch extends Query {
     // Currently this is just placeholder alias for Query.
     // If we find the definitions to diverge, we can
@@ -40,7 +50,11 @@ interface Inclusion {
 
 interface Filter extends Inclusion {}
 
-export interface Package {
+/**
+ * This is represents a Package as written
+ * to the Mongo database.
+ */
+interface Package {
     _id: string,
     PackageIdentifier: string,
     PackageVersion: string,
@@ -59,8 +73,8 @@ export interface Package {
     Installers: Installer[]
 }
 
-export interface Installer {
-    Architecture: 'x64',
+interface Installer {
+    Architecture: 'x64'|'x86'|'arm',
     InstallerType: 'msi'|'msix'|'exe'|'nullsoft'|'zip'|'wix'|string,
     InstallerUrl: string,
     InstallerSha256: string
@@ -68,6 +82,24 @@ export interface Installer {
     InstallerSwitches: {
         Silent?: string
     }
+}
+
+interface SearchResult {
+    PackageIdentifier:string,
+    PackageName:string,
+    Publisher:string,
+    PackageVersion:string,
+    PackageLocale:string,
+    Channel: string,
+    Versions?: [
+        {
+            PackageVersion: string
+        }
+    ]
+}
+
+interface ManifestSearch {
+    Data: SearchResult[];
 }
 
 export class WingetWeb {
@@ -102,14 +134,40 @@ export class WingetWeb {
         }
     }
 
+    /**
+     * Configure Node express and any middleware
+     */
     private configExpress():void {
+        this.app.use(this.middleman());
         this.app.use(express.json());
     }
 
+    /**
+     * Just a custom middleware to inspect, modify, or
+     * do some custom logging for every endpoint.
+     * @param req 
+     * @param res 
+     * @param next 
+     */
+    middleman(req?:any, res?:any, next?:any):any {
+        return (req?:any, res?:any, next?:any) => {
+            if (ISDEBUG) {
+                console.log("Endpoint called");
+                console.trace(req.params);
+                console.trace(req.query);
+            }
+            next();
+        }
+    }
+
+    /**
+     * Express endpoints 
+     */
     private createExpressEndpoints():void {
         this.app.get('/', (req, res) => {
             res.status(200).json({ 'status': 'ok' });
         });
+
         this.app.get('/api', (req, res) => {
             // When adding a source, winget-cli expects a 200 response.
             res.status(200).json({ 'status': 'ok' });
@@ -134,14 +192,15 @@ export class WingetWeb {
             let matches:Package[] = [] as Package[];
         
             let keyword = '';
-            let matchtype = '';
+            let matchtype:("Exact"|"Substring"|undefined) = undefined;
         
             // A Query in the body indicates a winget-cli search request
             // See the docs folder for an example of the request format
             let queryobject:Query = req.body.Query
             if (queryobject) {
+                if(ISDEBUG) console.log("Query type search");
                 keyword = queryobject.KeyWord ? queryobject.KeyWord : '';
-                matchtype = queryobject.MatchType ? queryobject.MatchType : '';
+                matchtype = queryobject.MatchType ? queryobject.MatchType : undefined;
                 matches = await wingetmongo.MongoQuery('packages', keyword, matchtype);
             }
         
@@ -149,11 +208,13 @@ export class WingetWeb {
             // See the docs folder for an example of the request format
             let inclusions:Inclusion[]|undefined = req.body.Inclusions;
             if (inclusions) {
+                if(ISDEBUG) console.log("Inclusion type search");
                 matches = await wingetmongo.MongoInclusions('packages', inclusions);
             }
 
             let filters:Filter[]|undefined = req.body.Filters;
             if (filters) {
+                if(ISDEBUG) console.log("Filter type search");
                 matches = await wingetmongo.MongoInclusions('packages', inclusions);
             }
         
@@ -162,6 +223,8 @@ export class WingetWeb {
             if (ISDEBUG) console.log("=================================================");
         
             /**
+             * Generate a ManifestSearch from a Package array
+             * 
              * The different search types (Query, Inclusion, Filter),
              * have very similar return formats. This looks
              * confusing, so fix this later.
@@ -174,12 +237,12 @@ export class WingetWeb {
              * --or just test with fiddler or something.
              * --Inclusion with filter may be one.
              */
-            let json:any = {
-                Data: []
+            let json:ManifestSearch = {
+                Data: [] as SearchResult[]
             }
-            
+
             if (matches.length > 0) {
-                let dobject:any = {};
+                let dobject:SearchResult;
                 for (let i = 0; i < matches.length; i++) {
                     if (i == 0 && inclusions !== undefined) {
                         dobject = {
@@ -189,7 +252,7 @@ export class WingetWeb {
                             PackageVersion: matches[i].PackageVersion,
                             PackageLocale: matches[i].PackageLocale,
                             Channel: 'unused',
-                            Versions: []
+                            Versions: [] as any as [{ PackageVersion:string}]
                         };
                     }
                     else if (filters !== undefined || queryobject !== undefined) {
@@ -200,7 +263,7 @@ export class WingetWeb {
                             PackageVersion: matches[i].PackageVersion,
                             PackageLocale: matches[i].PackageLocale,
                             Channel: 'unused',
-                            Versions: []
+                            Versions: [] as any as [{ PackageVersion:string}]
                         };
                     }
                     dobject.Versions.push({
@@ -209,6 +272,13 @@ export class WingetWeb {
         
                     json.Data.push(dobject);
                 }
+
+                if (ISDEBUG) {
+                    fs.writeFile("./output.json", JSON.stringify(json), (err) => {
+                        console.log(err);
+                    });
+                }
+
                 res.status(200).json(json);
             }
             else {
@@ -329,12 +399,10 @@ export class WingetWeb {
 }
 
 export class WingetMongo {
-    mongoclient:Mongo.MongoClient;
+    private mongoclient:Mongo.MongoClient;
 
     constructor(config:ServerConfig) {
-        this.mongoclient = new Mongo.MongoClient(config.MongoConnectString, {
-
-        })
+        this.mongoclient = new Mongo.MongoClient(config.MongoConnectString)
     }
 
     test(): void {
@@ -353,8 +421,25 @@ export class WingetMongo {
         )
     }
 
-    MongoQuery(collection:string = 'packages', KeyWord:string = '', MatchType:string): Promise<any> {
+    /**
+     * Performs a "Query" type search for Packages
+     * This method is called during a manifestSearch.
+     * @param collection 
+     * Should currently be "packages"
+     * @param KeyWord 
+     * The search term
+     * @param MatchType 
+     * A Query search can perform Exact and Substring searches
+     * @returns 
+     * An array of Packages
+     */
+    MongoQuery(collection:string = 'packages', KeyWord:string = '', MatchType:"Exact"|"Substring"|undefined): Promise<Package[]> {
         return new Promise((resolve, reject) => {
+            if(MatchType === undefined){
+                 reject("MatchType was not supplied.");
+                 return;
+            }
+
             this.mongoclient.connect()
                 .then(
                     async db => {
@@ -380,7 +465,7 @@ export class WingetMongo {
                             }
                             let _collection = await dbo.collection(collection);
                             let idxs = await _collection.indexes();
-                            let results = await dbo.collection(collection).find(query).toArray();
+                            let results:Package[] = await dbo.collection(collection).find(query).toArray() as any as Package[];
                             db.close();
                             resolve(results);
                         }
@@ -400,6 +485,15 @@ export class WingetMongo {
         });
     }
 
+    /**
+     * Performs an Inclusion or Filter type search for Packages
+     * @param collection 
+     * Should currently be "packages"
+     * @param Inclusions 
+     * An array of Inclusions or Filters
+     * @returns 
+     * An array of Packages
+     */
     MongoInclusions(collection:string = 'packages', Inclusions:Inclusion[]|Filter[]):Promise<Package[]> {
         return new Promise((resolve, reject) => {
             this.mongoclient.connect().then(
@@ -533,6 +627,9 @@ export class WingetMongo {
     }
 }
 
+/**
+ * Represents a config.json containing the environment settings
+ */
 export interface ServerConfig {
     Server:{
         serverID:string,
@@ -542,7 +639,9 @@ export interface ServerConfig {
     MongoConnectString:string;
     PackagesPath:string;
 }
-
+/**
+ * The WebConfig portion of a ServerConfig
+ */
 export interface WebConfig {
     httpPort:number,
     httpsPort?:number,

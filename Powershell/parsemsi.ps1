@@ -171,16 +171,17 @@ $windowsInstaller = $null;
 
 $doupload = "0";
 do {
-    Write-Host "===============================================";
-    Write-Host "      Select supported architecture type:";
-    Write-Host "";
-    Write-Host "            1: Press 1 to upload file";
-    Write-Host "            Q: Press Q to quit";
-    Write-Host "===============================================";
+    Write-Host "==================================================";
+    Write-Host "      Upload package manifest to REST server?     ";
+    Write-Host "                                                  ";
+    Write-Host "            1: Press 1 to upload file             ";
+    Write-Host "            Q: Press Q to quit                    ";
+    Write-Host "==================================================";
     $doupload = Read-Host -Prompt 'Upload file?';
 } until ($doupload -eq "1" -or $doupload.ToUpper() -eq "Q");
 
 if($doupload -eq "1") {
     Write-Host "Uploading"
+    $json = Get-Content .\tempfiles\packageManifest.json
     Invoke-WebRequest -Method Post -Uri $packageEndpoint -ContentType "application/json" -Body $json
 }
