@@ -5,7 +5,18 @@ This is a NodeJS/MongoDB Proof of Concept implementation of the Winget Restsourc
 
 This project is in early development.  Not all possible winget cli options have been implemented.
 
+### Docker
+A docker image is available to try with an example compose file:
+
+[WingetNodeTS Docker](https://hub.docker.com/r/treytesoro/wingetnode)
+
+Feel free to contact me here or on my discord if you have any questions.
+
+### Intune
+
 If you are wondering if this will ever work with Intune and its method of using winget, then likely no. Intune is currently only supporting msstore hosted applications.  To pull packages from a private winget repository with Intune, you would need create a legacy app to deploy a script which runs the winget command.
+
+### Official Winget Restsource and CLI documentation
 
 Please refer to the following for more information on the official reference implementation:
 1. [winget-cli-restsource](https://github.com/microsoft/winget-cli-restsource)
