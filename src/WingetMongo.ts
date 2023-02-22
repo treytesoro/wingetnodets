@@ -1,7 +1,8 @@
 import * as Mongo from 'mongodb';
-import * as express from 'express';
-import * as https from 'https';
-import * as fs from 'fs';
+import * as process from 'process';
+// import * as express from 'express';
+// import * as https from 'https';
+// import * as fs from 'fs';
 
 export const ISDEBUG=false;
 
@@ -86,15 +87,40 @@ export interface ManifestSearch {
 /**
  * Represents a config.json containing the environment settings
  */
-export interface ServerConfig {
+export class ServerConfig {
     Server:{
         serverID:string,
-        supportedApiVersions:string,
+        supportedApiVersions:string[],
         WebConfig: WebConfig
     };
     MongoConnectString:string;
     PackagesPath:string;
+    ServePackages:boolean;
+
+    public static loadFromEnv():ServerConfig {
+        let newConfig:ServerConfig = {
+            Server:{
+                serverID: process.env.WGN_SERVERID,
+                supportedApiVersions: process.env.WGN_SUPPORTED_VERSIONS.split(','),
+                WebConfig: {
+                    httpPort: parseInt(process.env.WGN_HTTP_PORT),
+                    httpsPort: parseInt(process.env.WGN_HTTPS_PORT),
+                    SSL: {
+                        privatekey: process.env.PRIVATEKEYPATH,
+                        publickey: process.env.PUBLICKEYPATH
+                    }
+                }
+            },
+            MongoConnectString: process.env.WGN_MONGO_CONNECTIONSTRING,
+            PackagesPath: process.env.PACKAGESPATH+"/",
+            ServePackages: process.env.WGN_SERVEPACKAGES=="1"?true:false
+        };
+        console.trace(process.env);
+        console.trace(newConfig);
+        return newConfig;
+    }
 }
+
 /**
  * The WebConfig portion of a ServerConfig
  */
@@ -112,7 +138,45 @@ export class WingetMongo {
     private mongoclient:Mongo.MongoClient;
 
     constructor(config:ServerConfig) {
+        let hasPackage:boolean = false;
+        console.log("Checking for mongo");
         this.mongoclient = new Mongo.MongoClient(config.MongoConnectString)
+        this.mongoclient.connect()
+        .then(
+            async db=>{
+                let dbo = db.db('winget');
+                try {
+                    let cols:Mongo.Collection[] = await dbo.collections();
+
+                    // cols.forEach(
+                    //     col=>{
+                    //         if(col.collectionName.toUpperCase()=='PACKAGES') {
+                    //             hasPackage = true;
+                    //         }
+                    //     }
+                    // });
+
+                    for(let col of cols){
+                        if(col.collectionName.toUpperCase()=='PACKAGES') {
+                            hasPackage = true;
+                        }
+                    }
+
+                    if(!hasPackage) {
+                        console.log("packages collection does not exist");
+                        await dbo.createCollection('packages');
+                    }
+                }
+                catch(Err){
+
+                }
+            }
+        )
+        .catch(
+            err=>{
+                console.log(err);
+            }
+        )
     }
 
     test(): void {

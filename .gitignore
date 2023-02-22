@@ -3,6 +3,7 @@ noclone/
 # Ignored folders/files
 tempfiles/
 /Powershell/myfile.json
+/docker
 
 # Logs
 logs

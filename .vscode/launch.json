@@ -15,7 +15,18 @@
             "preLaunchTask": "tsc: build - tsconfig.json",
             "outFiles": [
                 "${workspaceFolder}/dist/**/*.js"
-            ]
+            ],
+            "env": {
+                "ISDOCKER": "1",
+                "WGN_MONGO_CONNECTIONSTRING": "mongodb://root:example@127.0.0.1:27017/",
+                "WGN_SERVERID": "DevTest",
+                "WGN_SUPPORTED_VERSIONS": "1.0.0, 1.1.0",
+                "WGN_HTTP_PORT": "7070",
+                "WGN_HTTPS_PORT": "7071",
+                "PRIVATEKEYPATH": "",
+                "PUBLICKEYPATH": "",
+                "PACKAGESPATH": ""
+            }
         }
     ]
 }

@@ -28,7 +28,7 @@ interface ServerData {
          * An array of supported versions
          */
         SourceIdentifier:string;
-        ServerSupportedVersions:string;
+        ServerSupportedVersions:string[];
      }
 }
 
@@ -42,6 +42,7 @@ export class WingetWeb {
      */
     start():void {
         let wconfig:WebConfig = this.config.Server.WebConfig;
+        let mg = new WingetMongo(this.config);
         this.configExpress();
         this.createExpressEndpoints();
 
@@ -223,14 +224,16 @@ export class WingetWeb {
          * environment. Packages should be delivered from a dedicated content
          * server (GitLFS, OneDrive, or any onprem web accessible content server).
          */
-        this.app.get('/api/downloads/:pkgname', (req, res) => {
-            if (fs.existsSync(`${this.config.PackagesPath}${req.params.pkgname}`)) {
-                res.sendFile(`${this.config.PackagesPath}${req.params.pkgname}`);
-            }
-            else {
-                res.status(200).json({});
-            }
-        });
+        if(this.config.ServePackages) {
+            this.app.get('/api/downloads/:pkgname', (req, res) => {
+                if (fs.existsSync(`${this.config.PackagesPath}${req.params.pkgname}`)) {
+                    res.sendFile(`${this.config.PackagesPath}${req.params.pkgname}`);
+                }
+                else {
+                    res.status(200).json({});
+                }
+            });
+        }
         
         this.app.get('/api/packages', (req, res) => {
             res.status(200).json({});
