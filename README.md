@@ -56,7 +56,7 @@ In `./Powershell`, there are 3 .ps1 files
 2. parsemsix.ps1 (work in progress)
 3. parsenullsoft.ps1
 
-Edit the `$packageEndpoint` variable at the beginning of each script. This is the URI of the /package REST endpoint.
+Edit the `parserconfig.json` file and set `ingestpackageURI`. This is the URI of the /package REST endpoint.
 
 Running a parser will prompt for the URL of the package
 
