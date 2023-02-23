@@ -1,0 +1,5 @@
+#!/bin/bash
+cd Dockerfile
+docker build . -t wingetnode:latest
+../imgrm
+cd ..

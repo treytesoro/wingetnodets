@@ -12,6 +12,8 @@ import {
     ServerConfig, 
     WebConfig, 
     WingetMongo } from "./WingetMongo";
+import * as process from  "process";
+import { spawn } from "child_process";
 
 /**
  * The server data is returned from the /information endpoint
@@ -32,8 +34,17 @@ interface ServerData {
      }
 }
 
+const OKSTATUS:any = {
+    status: 'ok'
+}
+const ERRORSTATUS:any = {
+    status: 'error'
+}
+
 export class WingetWeb {
     private app = express();
+    
+    
 
     constructor(private config:ServerConfig) { }
 
@@ -103,16 +114,16 @@ export class WingetWeb {
 
         this.app.get('/getpowershells', (req, res) => {
             if (fs.existsSync(`/app/powershellHelpers.zip`)) {
-                res.sendFile(`/app/powershellHelpers.zip`);
+                res.status(200).sendFile(`/app/powershellHelpers.zip`);
             }
             else {
-                res.status(200).json({});
+                res.status(404).json(ERRORSTATUS);
             }
         });
 
         this.app.get('/api', (req, res) => {
             // When adding a source, winget-cli expects a 200 response.
-            res.status(200).json({ 'status': 'ok' });
+            res.status(200).json(OKSTATUS);
         });
         
         this.app.get('/api/information', (req, res) => {
@@ -224,6 +235,7 @@ export class WingetWeb {
                 res.status(200).json(json);
             }
             else {
+                // return zero matches
                 res.status(204).json({});
             }
         });
@@ -240,13 +252,14 @@ export class WingetWeb {
                     res.sendFile(`${this.config.PackagesPath}${req.params.pkgname}`);
                 }
                 else {
+                    // return an empty object to indicate no package found.
                     res.status(200).json({});
                 }
             });
         }
         
         this.app.get('/api/packages', (req, res) => {
-            res.status(200).json({});
+            res.status(200).json(OKSTATUS);
         });
         
         /**
@@ -334,16 +347,110 @@ export class WingetWeb {
             wingetmongo.MongoInsertDocument('packages', pkg).then(
                 result => {
                     if (ISDEBUG) console.log(result);
+                    res.status(200).json(OKSTATUS);
                 }
             ).catch(
                 err => {
                     if (ISDEBUG) console.log(err);
+                    res.status(200).json(ERRORSTATUS);
                 }
             ).finally(
                 () => {
-                    res.status(200).json({ status: 'ok' });
+                    
                 }
             );
+        });
+
+        this.app.post('/getcerts', (req, res)=>{
+            console.log(req.body);
+            let gencakey = spawn('/ca/gencakey.sh',[ req.body.capw ],{
+                cwd: "/ca"
+            });
+
+            let valuestemplate:string = fs.readFileSync("/ca/values-template.cfg", {
+                encoding: 'utf-8'
+            });
+
+            let webext:string = fs.readFileSync("/ca/webserver-template.ext", {
+                encoding: 'utf-8'
+            });
+
+            valuestemplate = valuestemplate.replace("{countrycode}", req.body.countrycode)
+            .replace("{locality}", req.body.locality)
+            .replace("{organization}", req.body.organization)
+            .replace("{cn}", req.body.cacn)
+            .replace("{email}", req.body.caemail)
+            .replace("{pass}", req.body.capw);
+
+            console.log(valuestemplate);
+
+            let sanstring = "";
+            let sans = req.body.san.split(',');
+            for(let i=0; i<sans.length; i++) {
+                sanstring+=`DNS.${i} = ${sans[i].trim()}\n`;
+            }
+
+            webext = webext.replace("{san}", sanstring);
+
+            fs.writeFileSync("/ca/tmpvalues.cfg", valuestemplate, {
+                encoding: "utf-8"
+            });
+
+            fs.writeFileSync("/ca/tmpwebserver.ext", webext, {
+                encoding: "utf-8"
+            });
+
+            gencakey.on('close', (code)=>{
+                console.log(`Gencakey exited: ${code}`);
+                let genrootcert = spawn('/ca/genrootcert.sh',[ req.body.capw, "/ca/tmpvalues.cfg" ],{
+                    cwd: "/ca"
+                });
+                genrootcert.on('close', (code)=>{
+                    console.log(`Genrootcert exited: ${code}`);
+                    let genkey = spawn('/ca/genkey.sh',[
+                        req.body.capw,
+                        "/ca/tmpvalues.cfg",
+                        "/ca/tmpwebserver.ext"
+                    ],{
+                        cwd: "/ca"
+                    });
+                    genkey.on('close', (code)=>{
+                        console.log(`Genkey existed ${code}`);
+                        let zip = spawn('/ca/zipcerts.sh',{
+                            cwd: "/ca"
+                        })
+                        zip.on('close', (code)=>{
+                            console.log(`Zipcerts existed ${code}`);
+                            let stats=fs.statSync('/ca/newcerts.zip');
+                            // res.sendFile('/ca/newcerts.zip', {
+                            //     headers: {
+                            //         'Content-Type': 'application/octet-steam',
+                            //         'Content-Length': stats["size"]
+                            //     }
+                            // })
+                            let data = fs.readFileSync('/ca/newcerts.zip');
+                            console.log(data.byteLength);
+                            console.log(data.length);
+                            res.set("Content-Type", "application/zip");
+                            res.set('Content-Disposition',`attachment; filename=newcerts.zip`);
+                            res.set('Content-Length', data.byteLength);
+                            res.send(data);
+                        });
+                    });
+                });
+            });
+            //res.status(200).json(OKSTATUS);
+        });
+
+        this.app.get('/:path', (req, res)=>{
+            //console.log("static path");
+            //console.log(req.params.path);
+            if (fs.existsSync(`/app/client/${req.params.path}`)) {
+                res.sendFile(`/app/client/${req.params.path}`);
+            }
+            else {
+                res.status(404).send("NOT FOUND");
+            }
         });
     }
 }

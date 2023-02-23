@@ -1,0 +1,8 @@
+#!/bin/bash
+
+docker stop wgn-mongo-1
+docker stop wgn-mongo-express-1
+docker stop wgn-wingetnode-1
+docker rm wgn-mongo-1
+docker rm wgn-mongo-express-1
+docker rm wgn-wingetnode-1

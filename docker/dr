@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker run -it --name testbuild -v /mnt/c/Users/tgtesoro/source/repos/wingetnodets/docker/certs:/certs -v /mnt/c/Users/tgtesoro/source/repos/wingetnode/packages:/packages -e PRIVATEKEYPATH="/certs/server.key" -e PUBLICKEYPATH="/certs/server.crt" myimage:latest /bin/bash

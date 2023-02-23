@@ -1,0 +1,7 @@
+#!/bin/bash
+
+docker compose -f ./wingetnode.yaml create
+docker compose -f ./wingetnode.yaml start
+
+# docker exec -it wgn-wingetnode-1 /bin/bash
+docker logs -f wgn-wingetnode-1

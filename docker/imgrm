@@ -1,0 +1,10 @@
+#!/bin/bash
+
+docker images --filter "dangling=true" | while read -r line;
+do
+  output=$(echo $line | sed -En "s/<none>\s+<none>\s+(\S+)(\s+)(.*)/\1/igp");
+  if [[ $output != "" ]]; then
+    echo $output;
+    docker image rm $output;
+  fi
+done;

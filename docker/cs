@@ -1,0 +1,5 @@
+#!/bin/bash
+
+docker start wgn-mongo-1
+docker start wgn-mongo-express-1
+docker start wgn-wingetnode-1
