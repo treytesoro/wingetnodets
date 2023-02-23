@@ -11,8 +11,10 @@ import * as fs from 'fs';
 let wgweb:WingetWeb = undefined;
 
 // If running in a docker, read from environment vars
-if (process.env.ISDOCKER) {
-    console.log("ISDOCKER");
+if (process.env.WGN_ISDOCKER) {
+    console.log("Detected a docker environment.");
+    console.log("Loading configuration from environment.");
+    
     // make sure certs are in path
     if(!fs.existsSync('/certs')) {
         console.warn("Could not find web server certificates.");
@@ -20,7 +22,7 @@ if (process.env.ISDOCKER) {
     }
 
     let config:ServerConfig = ServerConfig.loadFromEnv();
-    
+
     wgweb = new WingetWeb(config);
     wgweb.start();
 }

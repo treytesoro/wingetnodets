@@ -106,13 +106,13 @@ export class ServerConfig {
                     httpPort: parseInt(process.env.WGN_HTTP_PORT),
                     httpsPort: parseInt(process.env.WGN_HTTPS_PORT),
                     SSL: {
-                        privatekey: process.env.PRIVATEKEYPATH,
-                        publickey: process.env.PUBLICKEYPATH
+                        privatekey: process.env.WGN_PRIVATEKEYPATH,
+                        publickey: process.env.WGN_PUBLICKEYPATH
                     }
                 }
             },
             MongoConnectString: process.env.WGN_MONGO_CONNECTIONSTRING,
-            PackagesPath: process.env.PACKAGESPATH+"/",
+            PackagesPath: process.env.WGN_PACKAGESPATH+"/",
             ServePackages: process.env.WGN_SERVEPACKAGES=="1"?true:false
         };
         console.trace(process.env);

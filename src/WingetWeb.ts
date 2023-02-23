@@ -97,7 +97,17 @@ export class WingetWeb {
      */
     private createExpressEndpoints():void {
         this.app.get('/', (req, res) => {
-            res.status(200).json({ 'status': 'ok' });
+            //res.status(200).json({ 'status': 'ok' });
+            res.status(200).sendFile("/app/client/index.html");
+        });
+
+        this.app.get('/getpowershells', (req, res) => {
+            if (fs.existsSync(`/app/powershellHelpers.zip`)) {
+                res.sendFile(`/app/powershellHelpers.zip`);
+            }
+            else {
+                res.status(200).json({});
+            }
         });
 
         this.app.get('/api', (req, res) => {

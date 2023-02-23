@@ -1,10 +1,17 @@
-$packageEndpoint = "http://LT8V8T9Y2:7070/api/package"
+$config = Get-Content -Path ./parserconfig.json;
 
+$config = $config | ConvertFrom-Json
 
+$packageEndpoint = $config.ingestpackageURI;
 
 $windowsInstaller = New-Object -ComObject WindowsInstaller.Installer;
 Add-Type -AssemblyName System.Globalization;
 
+<#
+TODO: Probably should just use a dictionary.
+This will be refactored.  It will make the Fetch function easier
+to write/read.
+#>
 class MSIDetails {
     [string]$PackageIdentifier;
     [string]$PackageVersion;

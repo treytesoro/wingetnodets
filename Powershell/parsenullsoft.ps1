@@ -1,4 +1,8 @@
-$packageEndpoint = "http://LT8V8T9Y2:7070/api/package"
+$config = Get-Content -Path ./parserconfig.json;
+
+$config = $config | ConvertFrom-Json
+
+$packageEndpoint = $config.ingestpackageURI;
 
 $pUrl = "";
 $pUrl = Read-Host -Prompt 'Enter Nullsoft package URL';
