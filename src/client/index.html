@@ -87,6 +87,11 @@
             h4 {
                 color:rgb(62, 96, 148)
             }
+            #btncreatecerts {
+                margin-right: 80px;
+                min-width: 80px;
+                min-height: 40px;
+            }
         </style>
     </head>
     <body>
@@ -95,6 +100,8 @@
         <![endif]-->
         <div class="content">
             <h2>Welcome to WingetNode's resource pages.</h2>
+            <div>More information can be found at this project repository: <a href="https://github.com/treytesoro/wingetnodets">WingetnodeTS Github</a></div>
+            <br/>
             <div style="font-weight: bold;"><a href="/getpowershells">Download Powershell Helper files</a></div>
             <br/>
             <div>
@@ -108,6 +115,7 @@
             </div>
 
             <h3>Generate certificates</h3>
+            <div>Generate self-signed certificates to enable your servers HTTPS server.</div>
             <h4>Certificate Authority details</h4>
             <div class="inputfield">
                 <label for="countrycode">Country:</label>
@@ -391,9 +399,16 @@
             <h4>Web server certificate details</h4>
             <div class="inputfield">
                 <label for="san">Subject Alternate names:</label>
-                <input type="text" id="san" />
+                <input type="text" id="san" /> (comma delimited list of names)
             </div>
-            <div style="text-align: right;">
+            <div style="text-align: right; position: relative">
+                <div style="text-align: left; left: 50%; width: 50%; margin: 20px; font-size: .85em;">
+                    Clicking create will create and enable certificates
+                    for your webserver. A zip file will download containing
+                    your server's Certificate Authority and webserver certficates.
+                    A PFX file is included and can be used to add the
+                    Certificate Authority to your list of Trusted Root Certificate Authorities.
+                </div>
                 <button id="btncreatecerts">Create</button>
             </div>
         </div>

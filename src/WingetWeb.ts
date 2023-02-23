@@ -43,7 +43,7 @@ const ERRORSTATUS:any = {
 
 export class WingetWeb {
     private app = express();
-    
+    private sslServer?:https.Server = null;
     
 
     constructor(private config:ServerConfig) { }
@@ -61,19 +61,33 @@ export class WingetWeb {
             console.log(`HTTP  | Web server listening on ${wconfig.httpPort}`);
         });
 
+        this.sslServer = this.sslBegin();
+    }
+
+    sslBegin():https.Server {
+        let wconfig:WebConfig = this.config.Server.WebConfig;
         if(wconfig.httpsPort !== undefined) {
-            const ssloptions = {
-                key:  fs.readFileSync(wconfig.SSL.privatekey, 'utf8'),
-                cert: fs.readFileSync(wconfig.SSL.publickey, 'utf8')
-            };
-            
-            const httpsServer = https.createServer(ssloptions, this.app);
-            httpsServer.listen(wconfig.httpsPort, () => {
-                console.log(`HTTPS | Web server listening on ${wconfig.httpsPort}`);
-            });
+            if(fs.existsSync(wconfig.SSL.privatekey) && fs.existsSync(wconfig.SSL.publickey)) {
+                let ssloptions = {
+                    key:  fs.readFileSync(wconfig.SSL.privatekey, 'utf8'),
+                    cert: fs.readFileSync(wconfig.SSL.publickey, 'utf8')
+                };
+                
+                let httpsServer = https.createServer(ssloptions, this.app);
+                httpsServer.listen(wconfig.httpsPort, () => {
+                    console.log(`HTTPS | Web server listening on ${wconfig.httpsPort}`);
+                    return httpsServer;
+                });
+                
+            }
+            else {
+                console.warn("Certicates not found!");
+                return null;
+            }
         }
         else {
             console.warn("HTTPS not enabled");
+            return null;
         }
     }
 
@@ -416,6 +430,12 @@ export class WingetWeb {
                     });
                     genkey.on('close', (code)=>{
                         console.log(`Genkey existed ${code}`);
+                        fs.copyFileSync('/ca/webserver.crt', '/certs/server.crt');
+                        fs.copyFileSync('/ca/webserver.key', '/certs/server.key');
+
+                        //if(this.sslServer!=null) {
+                            this.sslServer = this.sslBegin();
+                        //}
                         let zip = spawn('/ca/zipcerts.sh',{
                             cwd: "/ca"
                         })
