@@ -10,6 +10,10 @@ A docker image is available to try with an example compose file:
 
 [WingetNodeTS Docker](https://hub.docker.com/r/treytesoro/wingetnode)
 
+This docker image will allow you to quickly get up and running with the ability to generate its own certificates.
+
+[![Example](https://img.youtube.com/vi/PwxUlk35r5Q/0.jpg)](https://youtu.be/PwxUlk35r5Q)
+
 Feel free to contact me here or on my discord if you have any questions.
 
 ### Intune
