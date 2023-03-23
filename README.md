@@ -56,7 +56,7 @@ To get started:
 
 ## Generating and uploading package manifest JSON files.
 In `./Powershell`, there are 3 .ps1 files
-1. parsemsi.ps1
+1. parsemsi.ps1 (requires WindowsInstaller.Installer COM from WixTools)
 2. parsemsix.ps1 (work in progress)
 3. parsenullsoft.ps1
 
