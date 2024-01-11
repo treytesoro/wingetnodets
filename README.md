@@ -16,6 +16,8 @@ This docker image will allow you to quickly get up and running with the ability 
 
 Feel free to contact me here or on my discord if you have any questions.
 
+[Discord](https://discord.gg/Ukqk8spfyq)
+
 ### Intune
 
 If you are wondering if this will ever work with Intune and its method of using winget, then likely no. Intune is currently only supporting msstore hosted applications.  To pull packages from a private winget repository with Intune, you would need create a legacy app to deploy a script which runs the winget command.
