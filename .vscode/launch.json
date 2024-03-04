@@ -11,13 +11,14 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}\\dist\\index.js",
-            "preLaunchTask": "tsc: build - tsconfig.json",
+            //"program": "${workspaceFolder}\\docker\\Dockerfile\\dist\\index.js",
+            "program": "${workspaceFolder}/src/index.ts",
+            "preLaunchTask": "Build and copy",
             "outFiles": [
-                "${workspaceFolder}/dist/**/*.js"
+                "${workspaceFolder}/Docker/Dockerfile/dist/**/*.js"
             ],
             "env": {
-                "ISDOCKER": "1",
+                "ISDOCKER": "0",
                 "WGN_MONGO_CONNECTIONSTRING": "mongodb://root:example@127.0.0.1:27017/",
                 "WGN_SERVERID": "DevTest",
                 "WGN_SUPPORTED_VERSIONS": "1.0.0, 1.1.0",

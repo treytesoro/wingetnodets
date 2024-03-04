@@ -4,7 +4,7 @@ import * as process from 'process';
 // import * as https from 'https';
 // import * as fs from 'fs';
 
-export const ISDEBUG=false;
+//export const ISDEBUG=false;
 
 /**
  * A Query for simple searches
@@ -50,6 +50,7 @@ export interface Package {
     PublisherUrl: string,
     PublisherSupportUrl: string,
     Tags: string[],
+    Moniker: string,
     Author: string,
     License: string,
     Installers: Installer[]
@@ -77,7 +78,9 @@ export interface SearchResult {
         {
             PackageVersion: string
         }
-    ]
+    ],
+    Moniker: string,
+    Match: string
 }
 
 export interface ManifestSearch {
@@ -139,7 +142,7 @@ export class WingetMongo {
 
     constructor(config:ServerConfig) {
         let hasPackage:boolean = false;
-        console.log("Checking for mongo");
+        //console.log("Checking for mongo");
         this.mongoclient = new Mongo.MongoClient(config.MongoConnectString)
         this.mongoclient.connect()
         .then(
@@ -275,21 +278,32 @@ export class WingetMongo {
                     var dbo = db.db("winget");
                     var allresults:Package[] = [] as Package[];
                     for (let inc of Inclusions) {
-                        let fieldname = inc.PackageMatchField == "Moniker" ? "Tags" : inc.PackageMatchField;
+                        let fieldname = inc.PackageMatchField;// == "Moniker" ? "Tags" : inc.PackageMatchField;
                         let matchtype = inc.RequestMatch.MatchType;
                         let keyword = inc.RequestMatch.KeyWord;
                         if (matchtype.toUpperCase() === "EXACT") { // I'm not sure if "Exact" should be case-insensitive
-                            if (ISDEBUG) console.log("Executing EXACT search");
+                            if (globalThis.ISDEBUG) console.log("Executing EXACT search");
                             let rgx = new RegExp(`^${keyword}$`, 'ig');
     
                             // wrap fieldname in square brackets - not sure what the library is
                             // doing, but it works.
                             let results:Package[] = (await dbo.collection(collection).find({ [fieldname]: { $regex: rgx } }).toArray()) as any as Package[];
-                            allresults = allresults.concat(results);
+                            results.forEach(r=>{
+                                let found = false;
+                                for(let i = 0; i < allresults.length; i++){
+                                    if(r._id.toString() === allresults[i]._id.toString()){
+                                        found = true;
+                                    }
+                                }
+                                if(!found){
+                                    allresults.push(r);
+                                }
+                            });
+                            //allresults = allresults.concat(results);
                         }
                         if (matchtype.toUpperCase() === "CASEINSENSITIVE" ||
                             matchtype.toUpperCase() === "SUBSTRING") {
-                            if (ISDEBUG) console.log("Executing CASEINSENSITIVE search");
+                            if (globalThis.ISDEBUG) console.log("Executing CASEINSENSITIVE search");
                             let rgx = new RegExp(`${keyword}`, 'ig');
                             let query = {};
     
@@ -303,7 +317,18 @@ export class WingetMongo {
     
                             // let results = await dbo.collection(collection).find({[fieldname]: {$regex: rgx}}).toArray();
                             let results:Package[] = (await dbo.collection(collection).find(query).toArray()) as any as Package[];
-                            allresults = allresults.concat(results);
+                            results.forEach(r=>{
+                                let found = false;
+                                for(let i = 0; i < allresults.length; i++){
+                                    if(r._id.toString() === allresults[i]._id.toString()){
+                                        found = true;
+                                    }
+                                }
+                                if(!found){
+                                    allresults.push(r);
+                                }
+                            });
+                            //allresults = allresults.concat(results);
                         }
                     }
     
@@ -319,10 +344,10 @@ export class WingetMongo {
     }
 
     MongoGetManifest(collection:string = 'packages', KeyWord:string = '', MatchType:string = 'Substring', options:any):Promise<Package[]> {
-        if (ISDEBUG) console.log(collection);
-        if (ISDEBUG) console.log(KeyWord);
-        if (ISDEBUG) console.log(MatchType);
-        if (ISDEBUG) console.log(options);
+        if (globalThis.ISDEBUG) console.log(collection);
+        if (globalThis.ISDEBUG) console.log(KeyWord);
+        if (globalThis.ISDEBUG) console.log(MatchType);
+        if (globalThis.ISDEBUG) console.log(options);
     
         let query:any = { PackageIdentifier: KeyWord }
         if (options) {
@@ -340,32 +365,32 @@ export class WingetMongo {
                             let test = await dbo.collection(collection).createIndex({ PackageIdentifier: "text", PackageVersion: "text" });
                             //let idx = await dbo.createIndex( { 'PackageName': "text" } );
                             let SubstringQuery = { $text: { $search: query.PackageIdentifier } };
-                            if (ISDEBUG) console.log(JSON.stringify(SubstringQuery));
+                            if (globalThis.ISDEBUG) console.log(JSON.stringify(SubstringQuery));
                             let _collection = await dbo.collection(collection);
                             //let idxs = await _collection.indexes();
                             let results:Package[] = await dbo.collection(collection).find(SubstringQuery).toArray() as any as Package[];
                             db.close();
-                            if (ISDEBUG) console.log("MongoGetManifest");
-                            if (ISDEBUG) console.log(results);
+                            if (globalThis.ISDEBUG) console.log("MongoGetManifest");
+                            if (globalThis.ISDEBUG) console.log(results);
                             resolve(results);
                         }
                         catch (err) {
-                            if (ISDEBUG) console.log(err);
+                            if (globalThis.ISDEBUG) console.log(err);
                             reject(err);
                         }
                     }
                     else {
                         let results:Package[] = await dbo.collection(collection).find(query).toArray() as any as Package[];
-                        if (ISDEBUG) console.log(JSON.stringify(query));
-                        if (ISDEBUG) console.log("MongoGetManifest");
-                        if (ISDEBUG) console.log(results);
+                        if (globalThis.ISDEBUG) console.log(JSON.stringify(query));
+                        if (globalThis.ISDEBUG) console.log("MongoGetManifest");
+                        if (globalThis.ISDEBUG) console.log(results);
                         db.close();
                         resolve(results);
                     }
                 }).catch(
                     err => {
-                        if (ISDEBUG) console.log("COULD NOT CONNECT TO MONGO");
-                        if (ISDEBUG) console.log(err);
+                        if (globalThis.ISDEBUG) console.log("COULD NOT CONNECT TO MONGO");
+                        if (globalThis.ISDEBUG) console.log(err);
                         reject(err);
                     }
                 ).finally(

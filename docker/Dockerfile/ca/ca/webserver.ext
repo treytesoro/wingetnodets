@@ -1,0 +1,10 @@
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = LT8V8T9Y2
+DNS.2 = LT8V8T9Y2.local
+DNS.3 = LT8V8T9Y2.corp.ad.sentara.com
+DNS.4 = localhost

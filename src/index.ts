@@ -8,6 +8,11 @@ import { WingetWeb } from './WingetWeb';
 import * as process from 'process';
 import * as fs from 'fs';
 
+declare global {
+    var ISDEBUG: boolean;
+}
+globalThis.ISDEBUG = true;
+
 let wgweb:WingetWeb = undefined;
 
 // If running in a docker, read from environment vars
