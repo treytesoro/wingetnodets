@@ -67,7 +67,8 @@ Please refer to the following for more information on the official reference imp
 You will need a signed certificate for your REST webserver. Winget will not allow HTTP rest endpoints. InstallerURLs can be served over regular http.
 
 You will need to create a directory at the root of the project named `noclone`.  Copy the [a config.example.json](./config.example.json) to this directory and rename to `config.json`. Edit the fields for your environment.
---
+
+<hr/>
 
 ### MongoDB
 The only requirement here is an accessible Mongo instance with a database named "winget".<br/>
