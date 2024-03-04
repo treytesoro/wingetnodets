@@ -38,12 +38,19 @@ interface ServerData {
     }
 }
 
+class ERRORSTATUS {
+    status:"error" = "error";
+    errormessage:string;
+    constructor(ErrorMessage:string) {
+        this.errormessage = ErrorMessage;
+    }
+}
 const OKSTATUS: any = {
     status: 'ok'
 }
-const ERRORSTATUS: any = {
-    status: 'error'
-}
+// const ERRORSTATUS: _ERRORSTATUS = {
+//     status: 'error', errormessage: ''
+// }
 
 export class WingetWeb {
     private app = express();
@@ -139,7 +146,8 @@ export class WingetWeb {
                 res.status(200).sendFile(`/app/powershellHelpers.zip`);
             }
             else {
-                res.status(404).json(ERRORSTATUS);
+                let errmsg:ERRORSTATUS = new ERRORSTATUS("Could not find powershellHelpers.zip");
+                res.status(404).json(errmsg);
             }
         });
 
@@ -226,7 +234,7 @@ export class WingetWeb {
                             pkg.PublisherSupportUrl = "";
                             pkg.Tags = [];
                             pkg.Moniker = "";
-                            pkg.Author= "";
+                            pkg.Author= jobj.Manufacturer;
                             pkg.License = "";
                             pkg.Installers = [
                                 {
@@ -490,7 +498,8 @@ export class WingetWeb {
             ).catch(
                 err => {
                     if (globalThis.ISDEBUG) console.log(err);
-                    res.status(200).json(ERRORSTATUS);
+                    let errmsg:ERRORSTATUS = new ERRORSTATUS(err);
+                    res.status(200).json(errmsg);
                 }
             ).finally(
                 () => {

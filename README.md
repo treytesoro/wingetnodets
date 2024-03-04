@@ -1,5 +1,16 @@
 # Wingetnodets Project
 
+**Table of content:**
+ - [Introduction](#intro)
+ - [Docker](#docker)
+ - [Intune](#intune)
+ - [Winget Reference documenation](#wingedocs)
+ - [API and MongoDB configuration](#apidbconfig)
+ - [Generating/Uploading package manifests](#manifestcreation)
+ - [Adding winget source to a machine](#pcsetup)
+ - [TODO list](#todo)
+
+<a id="intro"></a>
 ## Introduction
 This is a NodeJS/MongoDB Proof of Concept implementation of the Winget Restsource reference code.
 
@@ -17,6 +28,11 @@ To get started, first clone down this project `git clone https://github.com/trey
 
 *Note: Compiling will also update the docker build files. If you choose to build the docker image, you'll want to update the wingetnode.yaml and change the volume source paths for both the wingetnode and mongo service definitions. Make sure the cert paths and filenames are correct for your environment.
 
+Once up and running, you can visit the repositories homepage to add packages and download scripts.
+
+<img src="https://raw.githubusercontent.com/treytesoro/wingetnodets/dev/docs/wingetnode_img001.png" width=600/>
+
+<a id="docker"></a>
 ### Docker
 A prebuilt docker image is available to test with an example compose file:
 
@@ -30,10 +46,12 @@ Feel free to contact me here or on my discord if you have any questions.
 
 [Discord](https://discord.gg/Ukqk8spfyq)
 
+<a id="intune"></a>
 ### Intune
 
 If you are wondering if this will ever work with Intune and its method of using winget, then likely no. Intune is currently only supporting msstore hosted applications.  To pull packages from a private winget repository with Intune, you would need create a legacy app to deploy a script which runs the winget command.
 
+<a id="wingedocs"></a>
 ### Official Winget Restsource and CLI documentation
 
 Please refer to the following for more information on the official reference implementation:
@@ -42,16 +60,14 @@ Please refer to the following for more information on the official reference imp
    1. [Example manifest yaml files](https://github.com/microsoft/winget-cli/tree/master/schemas/JSON/manifests)
    2. [Example version 1.4 JSON response format](https://github.com/microsoft/winget-cli/blob/master/src/AppInstallerCLITests/RestInterface_1_4.cpp#L43)<br/>Note: as of this writing, version 1.4 has not been released, but prior versions are available to view in the same folder as the above link.
 
+<a id="apidbconfig"></a>
 ## REST API project and MongoDB configuration
 
 ### WebServer
 You will need a signed certificate for your REST webserver. Winget will not allow HTTP rest endpoints. InstallerURLs can be served over regular http.
 
 You will need to create a directory at the root of the project named `noclone`.  Copy the [a config.example.json](./config.example.json) to this directory and rename to `config.json`. Edit the fields for your environment.
-
 --
-
-Searching with the filters `--name`, `--tag`, `--exact` are implemented but may return unexpected results. A Search query using `--query` is currently not implemented.
 
 ### MongoDB
 The only requirement here is an accessible Mongo instance with a database named "winget".<br/>
@@ -60,6 +76,7 @@ For dev/test purposes, I'm using the official mongodb and mongo-express docker i
 https://hub.docker.com/_/mongo
 ```
 
+<a id="manifestcreation"></a>
 ## Generating and uploading package manifest JSON files.
 You can use the package inspector on the main webpage to generate manifest files and upload them to the REST API.
 This has some limitation since it needs to download the entire package to inspect it.
@@ -87,6 +104,7 @@ Once inspection is complete, the script will open the resulting manifest file in
 
 Upon saving changes and closing the notepad instance, you will be prompted to upload the manifest to our winget REST server. If you choose to submit the manifest, accept the next prompt to upload.
 
+<a id="pcsetup"></a>
 ## Adding the new winget source to a machine
 This will vary depending on your environment's configuration. "dmtstore" can be any name.<br/>
 The argument is the url to the running index.js. SSL is required! If you have not already done so, set up your webserver certificates.
@@ -104,7 +122,7 @@ Sources maintain their own independent sqlite DBs in the following path:
 ```
 %USERPROFILE%\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState
 ```
-
+<a id="todo"></a>
 ## Current TODO
 - [ ] Finish powershell scripts to help with manifest creation in Windows
 - [ ] Package the powershell scripts into a module with cmdlets for easier use
@@ -112,7 +130,6 @@ Sources maintain their own independent sqlite DBs in the following path:
 - [ ] Adjust mongo queries - search still needs work. I need to search additional fields and format the return data
 - [ ] Implement all possible filtering to support winget cli filtering options
 - [ ] Way, way, way down the road... I plan on implementing the package ingestion/validation endpoints
-- [ ] Rejoice
 
 
 ## Troubleshooting
