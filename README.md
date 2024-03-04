@@ -3,10 +3,22 @@
 ## Introduction
 This is a NodeJS/MongoDB Proof of Concept implementation of the Winget Restsource reference code.
 
-This project is in early development.  Not all possible winget cli options have been implemented.
+This project is in early development.  Some winget command line options are not yet supported.
+
+To get started, first clone down this project `git clone https://github.com/treytesoro/wingetnodets.git`:
+1. Run `npm install` from the project root.
+2. Run `npm run compile-lin` or `npm run compile-win` depending on target platform.
+3. Once complete, there should be a new `dist` directory at `/docker/Dockerfile/dist`
+4. Create a directory named `noclone` under `/docker/Dockerfile` directory. This new directory should be adjacent to the `dist` directory.
+5. Copy `config.example.json` to `noclone/config.json`
+6. Generate a private and public key for the webserver and copy to `noclone`
+7. Update config.json with your environment's settings.
+8. Run `npm start` to start the web server.
+
+*Note: Compiling will also update the docker build files. If you choose to build the docker image, you'll want to update the wingetnode.yaml and change the volume source paths for both the wingetnode and mongo service definitions. Make sure the cert paths and filenames are correct for your environment.
 
 ### Docker
-A docker image is available to try with an example compose file:
+A prebuilt docker image is available to test with an example compose file:
 
 [WingetNodeTS Docker](https://hub.docker.com/r/treytesoro/wingetnode)
 
@@ -48,15 +60,12 @@ For dev/test purposes, I'm using the official mongodb and mongo-express docker i
 https://hub.docker.com/_/mongo
 ```
 
-To get started:
-1. Create a folder named `noclone` at the project root.
-2. Copy `config.example.json` to `noclone/config.json`
-3. Generate a private and public key for the webserver and copy to `noclone`
-4. Update config.json with your environment's settings.
-5. Run `npm install` from project root.
-6. Run `npm start` to start the web server.
-
 ## Generating and uploading package manifest JSON files.
+You can use the package inspector on the main webpage to generate manifest files and upload them to the REST API.
+This has some limitation since it needs to download the entire package to inspect it.
+
+Alternatively you can use Powershell scripts:
+
 In `./Powershell`, there are 3 .ps1 files
 1. parsemsi.ps1 (requires WindowsInstaller.Installer COM from WixTools)
 2. parsemsix.ps1 (work in progress)
@@ -76,12 +85,11 @@ You'll be prompted for any additional information for the package.
 
 Once inspection is complete, the script will open the resulting manifest file in Notepad.exe. From here you can make any manual adjustments to the file.
 
-Upon optionally saving changes and closing the notepad instance, you will be prompted to upload the manifest to our winget REST server. If you choose to upload, a
-batch file located in `./Batch` named `upload.cmd` will execute. 
+Upon saving changes and closing the notepad instance, you will be prompted to upload the manifest to our winget REST server. If you choose to submit the manifest, accept the next prompt to upload.
 
-## Adding the new winget source
+## Adding the new winget source to a machine
 This will vary depending on your environment's configuration. "dmtstore" can be any name.<br/>
-The argument is the url to the running index.js.  SSL is required!
+The argument is the url to the running index.js. SSL is required! If you have not already done so, set up your webserver certificates.
 ```
 winget source add -n dmtstore -a https://localhost:7071/api -t Microsoft.Rest
 ```
@@ -99,6 +107,7 @@ Sources maintain their own independent sqlite DBs in the following path:
 
 ## Current TODO
 - [ ] Finish powershell scripts to help with manifest creation in Windows
+- [ ] Package the powershell scripts into a module with cmdlets for easier use
 - [ ] Create bash scripts for manifest creation in Linux (msitools can parse msi properties)
 - [ ] Adjust mongo queries - search still needs work. I need to search additional fields and format the return data
 - [ ] Implement all possible filtering to support winget cli filtering options
