@@ -12,7 +12,7 @@ TODO: Probably should just use a dictionary.
 This will be refactored.  It will make the Fetch function easier
 to write/read.
 #>
-class MSIDetails {
+class PackageManifest {
     [string]$PackageIdentifier;
     [string]$PackageVersion;
     [string]$PackageLocale;
@@ -25,11 +25,12 @@ class MSIDetails {
     [string]$PublisherUrl;
     [string]$PublisherSupportUrl;
     [string[]]$Tags;
+    [string]$Moniker;
     [string]$Author;
     [string]$License;
     [Installer[]]$Installers;
 
-    MSIDetails() {
+    PackageManifest() {
         $this.Copyright = "";
         $this.PrivacyUrl = "";
         $this.PublisherUrl = "";
@@ -51,11 +52,29 @@ class InstallerSwitch {
     [string]$Silent;
 }
 
-function Fetch() {
-    [OutputType([MSIDetails])]
+<#
+.SYNOPSIS
+Inspects an MSI file and extracts metadata to build a PackageManifest object
+
+.DESCRIPTION
+Inspects an MSI file and extracts metadata to build a PackageManifest object
+
+.PARAMETER PackageURL
+Source URL or package. This is where the MSI file will be downloaded from.
+
+.PARAMETER filePath
+The local path to the MSI file. This needs to first be downloaded from the PackageURL.
+
+.NOTES
+General notes
+#>
+function CreatePackageManifest() {
+    [OutputType([PackageManifest])]
     Param(
         [Parameter(Mandatory=$true, Position=1)]
-        [string]$PackageURL
+        [string]$PackageURL,
+        [Parameter(Mandatory=$true, Position=2)]
+        [string]$filePath
     )
 
     [void]($MSI = $windowsInstaller.OpenDatabase($filePath, 0));
@@ -65,7 +84,7 @@ function Fetch() {
 
     [void]($Shortcuts = $ShortcutsView.Fetch());
 
-    [void]([MSIDetails]$msidetails = [MSIDetails]::new());
+    [void]([PackageManifest]$PackageManifest = [PackageManifest]::new());
     [void]([Installer]$installer = [Installer]::New());
     $installer.InstallerURL = $PackageURL;
     $installer.InstallerSha256 = $hash;
@@ -74,7 +93,7 @@ function Fetch() {
     $installer.Architecture = if($packagearch -eq "1") {"x86"} else  {"x64"};
     [void]($installer.InstallerSwitches = [InstallerSwitch]::new());
     [void]($installer.InstallerSwitches.Silent = $optionalSilentInstallString);
-    [void]($msidetails.Installers = $msidetails.Installers + $installer);
+    [void]($PackageManifest.Installers = $PackageManifest.Installers + $installer);
 
 
 
@@ -84,22 +103,22 @@ function Fetch() {
 
         switch ($colname) {
             "Manufacturer" { 
-                [void]($msidetails.PackageIdentifier = $colvalue);
-                [void]($msidetails.Publisher = $colvalue);
+                [void]($PackageManifest.PackageIdentifier = $colvalue);
+                [void]($PackageManifest.Publisher = $colvalue);
                 break;
              }
             "ProductLanguage" { 
                 $culture = [CultureInfo]::new([System.Convert]::ToInt32($colvalue));
-                [void]($msidetails.PackageLocale = $culture.Name);                
+                [void]($PackageManifest.PackageLocale = $culture.Name);                
                 break;
              }
             "ProductName" { 
-                [void]($msidetails.PackageName = $colvalue);
-                [void]($msidetails.PackageIdentifier = $msidetails.PackageIdentifier+"."+$colvalue);
+                [void]($PackageManifest.PackageName = $colvalue);
+                [void]($PackageManifest.PackageIdentifier = $PackageManifest.PackageIdentifier+"."+$colvalue);
                 break;
              }
             "ProductVersion" { 
-                [void]($msidetails.PackageVersion = $colvalue);
+                [void]($PackageManifest.PackageVersion = $colvalue);
                 break;
              }
             Default {}
@@ -114,7 +133,7 @@ function Fetch() {
     [void]($ShortcutsView = $null);
     [void]($MSI = $null);
     
-    return (,$msidetails);
+    return (,$PackageManifest);
     
 }
 
@@ -149,29 +168,30 @@ do {
 $optionalSilentInstallString = Read-Host -Prompt 'Enter optional silent install arguments';
 Write-Host $optionalSilentInstallString;
 
-$msistuff = Fetch -PackageURL $pUrl;
+$pkgmanifest = CreatePackageManifest -PackageURL $pUrl -filePath $filePath;
 
 $optionalDescription = Read-Host -Prompt 'Enter optional description text';
-$msistuff.Description = if($optionalDescription.Trim() -eq "") { "No description available"} else { $optionalDescription }
+$pkgmanifest.Description = if($optionalDescription.Trim() -eq "") { "No description available"} else { $optionalDescription }
 
 $optionalShortDescription = Read-Host -Prompt 'Enter optional short description text';
-$msistuff.ShortDescription = if($optionalShortDescription.Trim() -eq "") { "No description available"} else { $optionalShortDescription }
+$pkgmanifest.ShortDescription = if($optionalShortDescription.Trim() -eq "") { "No description available"} else { $optionalShortDescription }
 
 $optionalAuthor = Read-Host -Prompt "Enter author";
 if($optionalAuthor.Trim() -eq "") {
-    $optionalAuthor = $msistuff.Manufacturer
+    $optionalAuthor = $pkgmanifest.Manufacturer
 }
 
 $optionalLicense = Read-Host -Prompt "Enter license details";
-$msistuff.License = if($optionalLicense.Trim() -eq "") { "No license information available"} else { $optionalLicense }
+$pkgmanifest.License = if($optionalLicense.Trim() -eq "") { "No license information available"} else { $optionalLicense }
 
-$msistuff.Author = $optionalAuthor;
+$pkgmanifest.Author = $optionalAuthor;
 
-$json = $msistuff | ConvertTo-JSON -Depth 100;
+$json = $pkgmanifest | ConvertTo-JSON -Depth 100;
 $json | Out-File -FilePath .\tempfiles\packageManifest.json -Encoding "utf8"
 
 [System.Runtime.InteropServices.Marshal]::ReleaseComObject( $windowsInstaller ) > $null;
 
+# opens in notepad for manual editing
 Start-Process -FilePath "notepad" -Wait -WindowStyle Maximized -ArgumentList .\tempfiles\packageManifest.json
 
 $windowsInstaller = $null;

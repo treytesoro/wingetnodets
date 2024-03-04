@@ -1,0 +1,27 @@
+{
+	"tasks": [
+		{
+			"type": "typescript",
+			"tsconfig": "tsconfig.json",
+			"problemMatcher": [
+				"$tsc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"label": "tsc: build - tsconfig.json"
+		},
+		{
+			"type":"shell",
+			"command": "./bin/copyfiles.sh",
+			"windows": {
+				"command": "./bin/copyfiles.ps1"
+			},
+			"label": "Build and copy",
+			"dependsOn":[
+				"tsc: build - tsconfig.json"
+			]
+		}
+	]
+}

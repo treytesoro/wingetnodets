@@ -4,118 +4,185 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Wingetnode resource page</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-        <style>
-            @font-face {
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Wingetnode resource page</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+    <style>
+        @font-face {
             font-family: SpartanMB;
-                src: url('SpartanMB-Regular.otf') format('truetype');
-                font-weight: normal;
-            }
+            src: url('SpartanMB-Regular.otf') format('truetype');
+            font-weight: normal;
+        }
 
-            @font-face {
+        @font-face {
             font-family: SpartanMB;
-                src: url('SpartanMB-Bold.otf') format('truetype');
-                font-weight: bold;
-            }
+            src: url('SpartanMB-Bold.otf') format('truetype');
+            font-weight: bold;
+        }
 
-            @font-face {
+        @font-face {
             font-family: Montserrat;
-                src: url('Montserrat-Regular.otf') format('truetype');
-                font-weight: normal;
-            }
+            src: url('Montserrat-Regular.otf') format('truetype');
+            font-weight: normal;
+        }
 
-            @font-face {
+        @font-face {
             font-family: Montserrat;
-                src: url('Montserrat-Bold.otf') format('truetype');
-                font-weight: bold;
-            }
+            src: url('Montserrat-Bold.otf') format('truetype');
+            font-weight: bold;
+        }
 
-            @font-face {
+        @font-face {
             font-family: Montserrat;
-                src: url('Montserrat-Italic.otf') format('truetype');
-                font-weight: normal;
-                font-style: italic;
-            }
+            src: url('Montserrat-Italic.otf') format('truetype');
+            font-weight: normal;
+            font-style: italic;
+        }
 
-            @font-face {
+        @font-face {
             font-family: Montserrat;
-                src: url('Montserrat-BoldItalic.otf') format('truetype');
-                font-weight: bold;
-                font-style: italic;
-            }
+            src: url('Montserrat-BoldItalic.otf') format('truetype');
+            font-weight: bold;
+            font-style: italic;
+        }
 
-            body {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                background-color: rgb(33, 41, 53);
-                font-family: Montserrat;
-                line-height: 150%;
-            }
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(33, 41, 53);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 150%;
+        }
 
-            .content {
-                display: flex;
-                flex-direction: column;
-                width: 80%;
-                min-width: 800px;
-                max-width: 1000px;
-                border-radius: 10px;;
-                padding: 20px;
-                background-color: white;
-            }
+        .content {
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            min-width: 800px;
+            max-width: 1000px;
+            border-radius: 10px;
+            ;
+            padding: 20px;
+            background-color: white;
+        }
 
-            .inputfield {
-                margin: 2px;
-            }
-            .inputfield label {
-                display: inline-block;
-                min-width: 250px;
-                max-width: 250px;
-                text-align: right;
-                margin: 0px 10px;
-            }
-            .badpass {
-                border-color: red;
-            }
-            h4 {
-                color:rgb(62, 96, 148)
-            }
-            #btncreatecerts {
-                margin-right: 80px;
-                min-width: 80px;
-                min-height: 40px;
-            }
-        </style>
-    </head>
-    <body>
-        <!--[if lt IE 7]>
+        .inputfield {
+            margin: 2px;
+        }
+
+        .inputfield label {
+            display: inline-block;
+            min-width: 250px;
+            max-width: 250px;
+            text-align: right;
+            margin: 0px 10px;
+        }
+
+        .badpass {
+            border-color: red;
+        }
+
+        h4 {
+            color: rgb(62, 96, 148)
+        }
+
+        #btncreatecerts {
+            margin-right: 80px;
+            min-width: 80px;
+            min-height: 40px;
+        }
+
+        input[readonly=true][type=text],
+        input[readonly][type=text] {
+            color: #555555;
+            background-color: #cccccc;
+            border: solid 1px #cccccc;
+            outline: none;
+        }
+
+        #manifestedit {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .itempanel {
+            border: solid 1px #cccccc;
+            border-radius: 10px;
+            margin: 10px;
+            padding: 20px;
+        }
+
+        .itempanel h4 {
+            margin: 0;
+        }
+
+        #gencertpanel {
+            display: none;
+        }
+
+        #ctrlpanel {
+            flex-basis: 100%;
+            margin: 20px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <div class="content">
-            <h2>Welcome to WingetNode's resource pages.</h2>
-            <div>More information can be found at this project repository: <a href="https://github.com/treytesoro/wingetnodets">WingetnodeTS Github</a></div>
-            <br/>
-            <div style="font-weight: bold;"><a href="/getpowershells">Download Powershell Helper files</a></div>
-            <br/>
-            <div>
-                Use the powershell scripts to inspect packages and upload package manifests.<br/>
-                Extract the zip file and edit <span style="font-weight: bold;">parserconfig.json</span>.<br/>
-                Set <span style="font-weight: bold;">hostname</span> and <span style="font-weight: bold;">port</span> to your wingetnode server's host and port.
-                <br/>
-                <pre>
+    <div class="content">
+        <h2>Welcome to your WingetNode's Repository.</h2>
+        <div>More information can be found at this project repository: <a
+                href="https://github.com/treytesoro/wingetnodets">WingetnodeTS Github</a></div>
+        <br />
+        <div>
+            You can use the powershell scripts locally to upload packages, or use the Inspect and add a new package from below.
+        </div>
+        <div style="font-weight: bold;"><a href="/getpowershells">Download Powershell Helper files</a></div>
+        <br />
+        <div>
+            Use the powershell scripts to inspect packages and upload package manifests.<br />
+            Extract the zip file and edit <span style="font-weight: bold;">parserconfig.json</span>.<br />
+            Set <span style="font-weight: bold;">hostname</span> and <span style="font-weight: bold;">port</span> to
+            your wingetnode server's host and port.
+            <br />
+            <pre>
                     <span style="display: inline-block; border:solid 1px #999999; padding: 10px;">"ingestpackageURI": "https://hostname:port/api/package"</span>
                 </pre>
-            </div>
+        </div>
 
+        <div>
+            <h2>Inspect and add a new package:</h2>
+            <label for="packagetype">Type: </label>
+            <select id="packagetype">
+                <option value="msi" selected>MSI</option>
+                <option value="msix">MSIX</option>
+                <option value="exe">EXE (example: msi bundle/nullsoft)</option>
+            </select>
+            <label for="packageurl">Enter package url:</label><input type="text" id="packageurl"
+                value="https://syn01.home:7071/api/downloads/tightvnc-2.8.63-gpl-setup-64bit.msi" />
+            <button id="inspectbtn">Inspect</button>
+            <div id="manifestedit">
+                <!-- Generated elements go here -->
+            </div>
+        </div>
+
+        <div id="gencertpanel">
+            <hr/>
             <h3>Generate certificates</h3>
-            <div>Generate self-signed certificates to enable your servers HTTPS server.</div>
+            <div>
+                You appear to be visiting this page insecured. If you have not already done so, install a trusted certificate for winget
+                to function properly.
+            </div>
+            <div>For testing purposes, generate self-signed certificates to enable your servers HTTPS server.</div>
             <h4>Certificate Authority details</h4>
             <div class="inputfield">
                 <label for="countrycode">Country:</label>
@@ -389,7 +456,7 @@
             </div>
             <div class="inputfield">
                 <label for="challengepwd1">Challenge password:</label>
-                <input type="password" id="challengepwd1"/>
+                <input type="password" id="challengepwd1" />
             </div>
             <div class="inputfield">
                 <label for="challengepwd2">Challenge password (verify):</label>
@@ -412,83 +479,318 @@
                 <button id="btncreatecerts">Create</button>
             </div>
         </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', ()=>{
-                init();
-            });
-            
-            let init=()=> {
-                //var x = document.getElementById('');
-                var btncreatecerts = document.getElementById('btncreatecerts');
-                var capw1 = document.getElementById('challengepwd1');
-                var capw2 = document.getElementById('challengepwd2');
-                var countrycode = document.getElementById('countrycode');
-                var locality = document.getElementById('locality');
-                var organization = document.getElementById('organization');
-                var cacn = document.getElementById('cacn');
-                var caemail = document.getElementById('caemail');
-                var san = document.getElementById('san');
-
-                let getcerts=()=> {
-                    console.log("Getting certs");
-
-                    let reqData = {
-                        countrycode: countrycode.value,
-                        locality: locality.value,
-                        organization: organization.value,
-                        cacn: cacn.value,
-                        caemail: caemail.value,
-                        capw: capw1.value,
-                        san: san.value
-                    };
-
-                    let xhttp = new XMLHttpRequest();
-                    xhttp.onreadystatechange=function() {
-                        if(this.readyState==4 && this.status==200){
-                            console.log('ok');
-                            console.log(xhttp.response);
-                            let blob = new Blob([xhttp.response], {type:"application/zip"});
-                            var a = document.createElement("a");
-                            document.body.appendChild(a);
-                            a.style = "display:none";
-                            var url = window.URL.createObjectURL(blob);
-                            a.href = url;
-                            a.download = "newcerts.zip";
-                            a.click();
-                            window.URL.revokeObjectURL(url);
-                            a.remove();
-                        }
-                    }
-                    xhttp.responseType = "blob";
-                    xhttp.open("POST", "/getcerts");
-                    xhttp.setRequestHeader(
-                        "Content-type",
-                        "application/json"
-                    );
-                    xhttp.send(JSON.stringify(reqData));
-                }
-
-                btncreatecerts.addEventListener('click', getcerts);
-
-                [capw1, capw2].forEach(capw=>{
-                    capw.addEventListener('keyup', (e)=>{
-                        passmatch(e);
-                    });
-                });
-
-                let passmatch=(e)=> {
-                    let ismatch = capw1.value==capw2.value;
-                    if(!ismatch) {
-                        capw1.classList.add('badpass');
-                        capw2.classList.add('badpass');
-                    }
-                    else {
-                        capw1.classList.remove('badpass');
-                        capw2.classList.remove('badpass');
-                    }
-                    return ismatch;
-                }
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (location.protocol !== 'https:') {
+                document.querySelector("#gencertpanel").style.display='block';
             }
-        </script>
-    </body>
+            init();
+        });
+
+        var init = () => {
+            //var x = document.getElementById('');
+            var btncreatecerts = document.getElementById('btncreatecerts');
+            var capw1 = document.getElementById('challengepwd1');
+            var capw2 = document.getElementById('challengepwd2');
+            var countrycode = document.getElementById('countrycode');
+            var locality = document.getElementById('locality');
+            var organization = document.getElementById('organization');
+            var cacn = document.getElementById('cacn');
+            var caemail = document.getElementById('caemail');
+            var san = document.getElementById('san');
+            var inspectbtn = document.getElementById("inspectbtn");
+            var packageurl = document.getElementById("packageurl");
+            var manifestedit = document.getElementById("manifestedit");
+            var packagetype = document.getElementById("packagetype");
+
+            var getcerts = () => {
+                console.log("Getting certs");
+
+                let reqData = {
+                    countrycode: countrycode.value,
+                    locality: locality.value,
+                    organization: organization.value,
+                    cacn: cacn.value,
+                    caemail: caemail.value,
+                    capw: capw1.value,
+                    san: san.value
+                };
+
+                let xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+
+                        console.log('ok');
+                        console.log(xhttp.response);
+                        let blob = new Blob([xhttp.response], { type: "application/zip" });
+                        var a = document.createElement("a");
+                        document.body.appendChild(a);
+                        a.style = "display:none";
+                        var url = window.URL.createObjectURL(blob);
+                        a.href = url;
+                        a.download = "newcerts.zip";
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                        a.remove();
+                    }
+
+                    if (this.readyState == 4 && this.status == 204) {
+                        alert("Unsupported host OS!");
+                    }
+                }
+                xhttp.responseType = "blob";
+                xhttp.open("POST", "/getcerts");
+                xhttp.setRequestHeader(
+                    "Content-type",
+                    "application/json"
+                );
+                xhttp.send(JSON.stringify(reqData));
+            }
+
+            btncreatecerts.addEventListener('click', getcerts);
+
+            [capw1, capw2].forEach(capw => {
+                capw.addEventListener('keyup', (e) => {
+                    passmatch(e);
+                });
+            });
+
+            var passmatch = (e) => {
+                let ismatch = capw1.value == capw2.value;
+                if (!ismatch) {
+                    capw1.classList.add('badpass');
+                    capw2.classList.add('badpass');
+                }
+                else {
+                    capw1.classList.remove('badpass');
+                    capw2.classList.remove('badpass');
+                }
+                return ismatch;
+            }
+
+            var eventhandlers = [];
+
+            var currentmanifest = null;
+            inspectbtn.addEventListener('click', (e) => {
+                let handlers = eventhandlers;
+                manifestedit.innerHTML = "";
+                fetch("/inspectmsi", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ packageurl: packageurl.value, packagetype: packagetype.value })
+                }).then(response => {
+                    if(response.status==200) {
+                        response.json().then(jobj => {
+                            //let _html = "";
+
+                            currentmanifest = jobj;
+
+                            let level = 1;
+                            function iterateobj(obj) {
+                                let parent = null;
+                                if (arguments[1]) {
+                                    parent = arguments[1];
+                                }
+                                console.log(level);
+                                for (prop in obj) {
+                                    // string type: we can create an input field for the single type
+                                    if (typeof obj[prop] == 'string') {
+                                        let div = document.createElement('div');
+                                        div.setAttribute('class', 'itempanel');
+                                        let h4 = document.createElement('h4');
+                                        h4.innerText = prop;
+                                        let input = document.createElement('input');
+                                        input.value = obj[prop];
+                                        input.type = "text";
+                                        div.appendChild(h4);
+                                        div.appendChild(input);
+
+                                        // Only create button and allow input 
+                                        // edit when initial value is empty.
+                                        if (input.value.trim() != "") {
+                                            input.setAttribute('readonly', 'true');
+                                            input.readOnly = true;
+                                        }
+                                        else {
+                                            let btn = document.createElement('button');
+                                            btn.setAttribute('id', prop + "_btn");
+                                            btn.innerText = "Set";
+                                            div.appendChild(btn);
+                                            let ref = obj;
+                                            let propname = prop;
+                                            btn.addEventListener('click', function (event) {
+                                                // console.log(ref);
+                                                // console.log(propname);
+                                                // console.log(parent);
+                                                // console.log(input.value);
+                                                ref[propname] = input.value;
+                                                console.log(currentmanifest);
+                                            });
+                                        }
+                                        
+                                        // Add the string input's parent div panel
+                                        // to the main manifestedit div
+                                        manifestedit.appendChild(div);
+                                    }
+                                    // object type: This will recursively call this
+                                    // method to generate our fields.
+                                    if (typeof obj[prop] == 'object') {
+                                        let isArray = obj[prop].length !== undefined ? true : false;
+                                        // Check for keys and iterate this child object if needed
+                                        let keylength = Object.keys(obj[prop]).length;
+                                        if (keylength > 0) {
+                                            // found keys so iterate them
+                                            for (item in obj[prop]) {
+                                                let newobj = obj[prop][item];
+                                                level++;
+                                                iterateobj(newobj, obj[prop]);
+                                            }
+                                        }
+                                        else {
+                                            // no keys found so we create a pair of input fields
+                                            // to add a new key and value
+                                            let div = document.createElement('div');
+                                            div.setAttribute('class', 'itempanel');
+                                            let h4 = document.createElement('h4');
+                                            h4.innerText = prop;
+                                            let input = document.createElement('input');
+                                            input.type = "text";
+                                            input.value = "";
+                                            let text = document.createTextNode(" : ");
+                                            let input2 = document.createElement('input');
+                                            input2.type = "text";
+                                            input2.value = "";
+                                            let btn = document.createElement('button');
+                                            btn.setAttribute('id', prop + "_btn");
+                                            btn.innerText = "Add New";
+                                            div.appendChild(h4);
+                                            div.appendChild(input);
+                                            div.appendChild(text);
+                                            div.appendChild(input2);
+                                            div.appendChild(btn);
+                                            manifestedit.appendChild(div);
+                                            let ref = obj;
+                                            let propname = prop;
+                                            btn.addEventListener('click', function (event) {
+                                                // Adds a new key/value pair to the object
+                                                // and creates readonly input fields to display
+                                                // them, with a Remove button to remove the item.
+                                                // console.log(ref);
+                                                // console.log(propname);
+                                                // console.log(parent);
+                                                // console.log(input.value);
+                                                ref[propname][input.value] = input2.value;
+                                                let i1 = document.createElement('input');
+                                                i1.type = "text";
+                                                i1.value = input.value;
+                                                i1.setAttribute('readonly', 'true');
+                                                let i2 = document.createElement('input');
+                                                i2.type = "text";
+                                                i2.value = input2.value;
+                                                i2.setAttribute('readonly', 'true');
+                                                let d2 = document.createElement('div');
+                                                let t2 = document.createTextNode(" : ");
+                                                let b2 = document.createElement('button');
+                                                b2.innerText = "Remove";
+                                                d2.append(i1);
+                                                d2.append(t2);
+                                                d2.append(i2);
+                                                d2.append(b2);
+                                                // b2's reference to input.value will change when adding a new item.
+                                                // Save the value to the dataset.iv property so we can use it as key
+                                                // when deleting a property from an object.
+                                                //b2.dataset.propname = propname;
+                                                //b2.dataset.iv = input.value;
+                                                b2.propname = propname; // do this instead so not visible in DOM
+                                                b2.iv = input.value;
+                                                b2.addEventListener('click', (e) => {
+                                                    //console.log(propname);
+                                                    //console.log(input.value);
+                                                    //console.log(e.target.iv);
+                                                    delete ref[e.target.propname][e.target.iv];
+                                                    d2.remove();
+                                                    console.log(currentmanifest);
+                                                });
+                                                h4.insertAdjacentElement('afterend', d2);
+                                                console.log(currentmanifest);
+                                                input.value = "";
+                                                input2.value = "";
+                                            });
+                                        }
+                                    }
+                                }
+                            }
+
+                            let submitbtn = document.createElement("button");
+                            submitbtn.innerText = "Submit Package";
+                            submitbtn.addEventListener('click', async (e)=>{
+                                let response = await fetch('/api/package',{
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify(currentmanifest)
+                                });
+                                let responseJson = await response.json();
+                                console.log(responseJson);
+                                if(responseJson.status == 'error') {
+                                    alert(responseJson.errormessage);
+                                }
+                            });
+                            let ctrlpanel = document.createElement('div');
+                            ctrlpanel.setAttribute('id', 'ctrlpanel');
+                            ctrlpanel.appendChild(submitbtn);
+                            manifestedit.appendChild(ctrlpanel);
+                            //console.log(currentmanifest);
+                            iterateobj(currentmanifest);
+
+
+                            // for(prop in jobj) {
+                            //     console.log(typeof jobj[prop]);
+                            //     if(typeof jobj[prop] == 'string') {
+                            //         _html += `<div><h4>${prop}</h4><input type='text' value='${jobj[prop]}'</div>`
+                            //     }
+                            //     if(typeof jobj[prop] == 'object') {
+                            //         let obj = jobj[prop];
+                            //         if(obj.length) {
+                            //             console.log(`LENGTH: ${obj.length}`)
+                            //             for(p in obj) {
+                            //                 if(typeof obj[p] == "object"){
+                            //                     if(obj[p].length) {
+
+                            //                     }
+                            //                     else {
+                            //                         let obj2 = obj[p];
+                            //                         for(p2 in obj2) {
+                            //                             _html += `<div><h4>${p2}</h4><input type='text' value='${obj2[p2]}'</div>`
+                            //                         }
+                            //                     }
+                            //                 }
+                            //                 if(typeof obj[p] == "string") {
+                            //                     _html += `<div><h4>${p}</h4><input type='text' value='${obj[p]}'</div>`
+                            //                 }
+                            //             }
+                            //         }
+                            //     }
+                            // }
+                            //console.log(_html);
+                            //manifestedit.innerHTML = _html;
+                        });
+                    }
+                    else if(response.status==204){
+                        alert("Type currently unsupported");
+                    }
+                }).catch(err => { });
+            });
+        }
+
+        function checkbtn(event) {
+            console.log(event.target.dataset.obj);
+        }
+    </script>
+</body>
+
 </html>

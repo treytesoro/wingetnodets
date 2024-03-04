@@ -5,9 +5,11 @@
   "main": "./dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "start node ./dist/index.js",
-    "compile": "tsc && powershell.exe ./bin/copyfiles.ps1",
-    "copyfiles": "powershell.exe ./bin/copyfiles.ps1"
+    "start": "node ./docker/Dockerfile/dist/index.js",
+    "compile-win": "tsc && powershell.exe ./bin/copyfiles.ps1",
+    "compile-lin": "tsc && /bin/bash ./bin/copyfiles.sh",
+    "copyfiles-win": "powershell.exe ./bin/copyfiles.ps1",
+    "copyfiles-lin": "/bin/bash ./bin/copyfiles.sh"
   },
   "author": "Trey Tesoro",
   "license": "ISC",
