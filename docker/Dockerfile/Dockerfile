@@ -4,7 +4,8 @@ FROM ubuntu:latest
 RUN apt-get -y update && apt-get -y upgrade && apt-get -y install curl && \
     curl -sL https://deb.nodesource.com/setup_18.x | /bin/bash && \
 	apt-get -y install nodejs && npm -y install -g npm@9.5.1 && \
-    apt-get -y install zip
+    apt-get -y install zip && \
+    apt-get -y install msitools
 
 RUN mkdir /app && mkdir /certs && mkdir /ca
 WORKDIR /app

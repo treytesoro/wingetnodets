@@ -246,7 +246,7 @@ export class WingetWeb {
                         res.status(200).json(OKSTATUS);
                     }
                     else if(platform == "linux") {
-                        let msipath = path.resolve(__dirname, "../msi.sh");
+                        let msipath = path.resolve(__dirname, "../ca/msi.sh");
                         let msi = spawn('/bin/bash', [msipath, 'inspect.msi']);
 
                         msi.stdout.on('data', (data) => {
