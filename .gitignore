@@ -17,6 +17,7 @@ lerna-debug.log*
 *.pem
 *.csr
 *.cer
+*.crt
 *.pfx
 inspect.msi
 output.json

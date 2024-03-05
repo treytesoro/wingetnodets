@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Wingetnode resource page</title>
+    <title>Wingetnode repository administration</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="">
@@ -99,24 +99,68 @@
             min-height: 40px;
         }
 
+        input[type=text] {
+            width: 30em;
+        }
+
+        #linksdescription {
+            text-align: right;
+        }
+
+        #linksdescription table {
+            float: right;
+            border: solid 0px #cccccc;
+            border-collapse: collapse;
+        }
+
+        #linksdescription table td {
+            /* border: solid 1px #cccccc; */
+            border-collapse: collapse;
+            padding: 2px 4px;
+        }
+
+        #linksdescription td.porttype {
+            border-right: solid 1px #cccccc;
+            width: 50%;
+            text-align: right;
+        }
+
+        #linksdescription td.serverlink {
+            width: 50%;
+            text-align: left;
+        }
+
+        .setbtn {
+            margin: 4px;
+        }
+
         input[readonly=true][type=text],
         input[readonly][type=text] {
             color: #555555;
             background-color: #cccccc;
-            border: solid 1px #cccccc;
+            border: solid 2px #cccccc;
             outline: none;
+        }
+
+        #manifesteditscrollpanel {
+            margin: 10px 0px;
+            max-height: 30em;
+            min-height: 2em;
+            overflow: auto;
+            border: solid 1px #cccccc;
         }
 
         #manifestedit {
             display: flex;
             flex-wrap: wrap;
+            flex-direction: column;
         }
 
         .itempanel {
             border: solid 1px #cccccc;
             border-radius: 10px;
-            margin: 10px;
-            padding: 20px;
+            margin: 2px 10px;
+            padding: 10px 20px;
         }
 
         .itempanel h4 {
@@ -128,8 +172,14 @@
         }
 
         #ctrlpanel {
+            display: block;
+            top: 0px;
+            position: sticky;
             flex-basis: 100%;
             margin: 20px 10px;
+            background-color: #cccccc;
+            padding: 10px;
+            border-radius: 6px;
         }
     </style>
 </head>
@@ -139,27 +189,10 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
     <div class="content">
+        <!--validurls-->
         <h2>Welcome to your WingetNode's Repository.</h2>
-        <div>More information can be found at this project repository: <a
-                href="https://github.com/treytesoro/wingetnodets">WingetnodeTS Github</a></div>
-        <br />
-        <div>
-            You can use the powershell scripts locally to upload packages, or use the Inspect and add a new package from below.
-        </div>
-        <div style="font-weight: bold;"><a href="/getpowershells">Download Powershell Helper files</a></div>
-        <br />
-        <div>
-            Use the powershell scripts to inspect packages and upload package manifests.<br />
-            Extract the zip file and edit <span style="font-weight: bold;">parserconfig.json</span>.<br />
-            Set <span style="font-weight: bold;">hostname</span> and <span style="font-weight: bold;">port</span> to
-            your wingetnode server's host and port.
-            <br />
-            <pre>
-                    <span style="display: inline-block; border:solid 1px #999999; padding: 10px;">"ingestpackageURI": "https://hostname:port/api/package"</span>
-                </pre>
-        </div>
 
-        <div>
+        <div style="margin-bottom: 6em">
             <h2>Inspect and add a new package:</h2>
             <label for="packagetype">Type: </label>
             <select id="packagetype">
@@ -167,20 +200,50 @@
                 <option value="msix">MSIX</option>
                 <option value="exe">EXE (example: msi bundle/nullsoft)</option>
             </select>
-            <label for="packageurl">Enter package url:</label><input type="text" id="packageurl"
-                value="https://syn01.home:7071/api/downloads/tightvnc-2.8.63-gpl-setup-64bit.msi" />
+            <!-- <label for="packageurl">Enter package url:</label> -->
+            <input type="text" id="packageurl" value="" placeholder="Enter package URL" />
             <button id="inspectbtn">Inspect</button>
-            <div id="manifestedit">
-                <!-- Generated elements go here -->
+
+            <div id="manifesteditscrollpanel">
+                <div id="manifestedit">
+                    <!-- Generated elements go here -->
+                </div>
+            </div>
+
+        </div>
+
+        <div style="background-color: #dddddd; border-radius: 6px; padding: 10px;">
+            <div>
+                You can use the following powershell scripts locally to inspect/upload packages manifests.
+            </div>
+            <br/>
+            <div style="font-weight: bold;"><a href="/getpowershells">Download Powershell Helper files</a></div>
+            <br/>
+            <div>
+                Use the powershell scripts to inspect packages and upload package manifests.<br />
+                Extract the zip file and edit <span style="font-weight: bold;">parserconfig.json</span>.<br />
+                Set <span style="font-weight: bold;">hostname</span> and <span style="font-weight: bold;">port</span> to
+                your wingetnode server's host and port.
+                <br />
+                <pre>
+                    <span style="display: inline-block; border:solid 1px #999999; padding: 10px;">"ingestpackageURI": "https://hostname:port/api/package"</span>
+                </pre>
+            </div>
+            <hr/>
+            <div>
+                More information can be found at this project repository: <a
+                    href="https://github.com/treytesoro/wingetnodets">WingetnodeTS Github</a>
             </div>
         </div>
 
         <div id="gencertpanel">
-            <hr/>
+            <hr />
             <h3>Generate certificates</h3>
             <div>
-                You appear to be visiting this page insecured. If you have not already done so, install a trusted certificate for winget
-                to function properly.
+                You appear to be visiting this page insecured. If you have not already done so, install a trusted
+                certificate for winget
+                to function properly.<br />
+
             </div>
             <div>For testing purposes, generate self-signed certificates to enable your servers HTTPS server.</div>
             <h4>Certificate Authority details</h4>
@@ -481,9 +544,13 @@
         </div>
     </div>
     <script>
+        // DO NOT EDIT these 3 lines!
+        //{HOSTNAME}
+        //{PORT}
+        //{SSLPORT}
         document.addEventListener('DOMContentLoaded', () => {
             if (location.protocol !== 'https:') {
-                document.querySelector("#gencertpanel").style.display='block';
+                document.querySelector("#gencertpanel").style.display = 'block';
             }
             init();
         });
@@ -575,6 +642,7 @@
             inspectbtn.addEventListener('click', (e) => {
                 let handlers = eventhandlers;
                 manifestedit.innerHTML = "";
+                currentmanifest = null;
                 fetch("/inspectmsi", {
                     method: "POST",
                     headers: {
@@ -582,11 +650,43 @@
                     },
                     body: JSON.stringify({ packageurl: packageurl.value, packagetype: packagetype.value })
                 }).then(response => {
-                    if(response.status==200) {
+                    if (response.status == 200) {
                         response.json().then(jobj => {
                             //let _html = "";
 
                             currentmanifest = jobj;
+
+                            function setval() {
+
+                            }
+
+                            function unsetval() {
+                                // console.log(ref);
+                                // console.log(propname);
+                                // console.log(parent);
+                                // console.log(input.value);
+                                input.removeAttribute('readonly');
+                                input.readOnly = false;
+                                //ref[propname] = input.value;
+                                console.log(currentmanifest);
+                                e.target.remove();
+
+                                let btn = document.createElement('button');
+                                btn.classList.add("setbtn")
+                                btn.setAttribute('id', prop + "_btn");
+                                btn.innerText = "Set";
+                                div.appendChild(btn);
+                                let ref = obj;
+                                let propname = prop;
+                                btn.addEventListener('click', function (event) {
+                                    // console.log(ref);
+                                    // console.log(propname);
+                                    // console.log(parent);
+                                    // console.log(input.value);
+                                    ref[propname] = input.value;
+                                    console.log(currentmanifest);
+                                });
+                            }
 
                             let level = 1;
                             function iterateobj(obj) {
@@ -608,29 +708,39 @@
                                         div.appendChild(h4);
                                         div.appendChild(input);
 
+                                        let ref = obj;
+                                        let propname = prop;
+                                        let unsetbtn = document.createElement('button');
+                                        unsetbtn.classList.add("setbtn")
+                                        unsetbtn.setAttribute('id', prop + "_btn");
+                                        unsetbtn.innerText = "UnSet";
+                                        div.appendChild(unsetbtn);
+                                        unsetbtn.addEventListener('click', function (event) {
+                                            input.removeAttribute('readonly');
+                                            input.readOnly = false;
+                                        });
+
+                                        let setbtn = document.createElement('button');
+                                        setbtn.classList.add("setbtn")
+                                        setbtn.setAttribute('id', prop + "_btn");
+                                        setbtn.innerText = "Set";
+                                        div.appendChild(setbtn);
+                                        setbtn.addEventListener('click', function (event) {
+                                            input.setAttribute('readonly', 'true');
+                                            input.readOnly = true;
+
+                                            ref[propname] = input.value;
+                                            console.log(currentmanifest);
+                                        });
+
+                                        // Set default for no value
                                         // Only create button and allow input 
                                         // edit when initial value is empty.
                                         if (input.value.trim() != "") {
                                             input.setAttribute('readonly', 'true');
                                             input.readOnly = true;
                                         }
-                                        else {
-                                            let btn = document.createElement('button');
-                                            btn.setAttribute('id', prop + "_btn");
-                                            btn.innerText = "Set";
-                                            div.appendChild(btn);
-                                            let ref = obj;
-                                            let propname = prop;
-                                            btn.addEventListener('click', function (event) {
-                                                // console.log(ref);
-                                                // console.log(propname);
-                                                // console.log(parent);
-                                                // console.log(input.value);
-                                                ref[propname] = input.value;
-                                                console.log(currentmanifest);
-                                            });
-                                        }
-                                        
+
                                         // Add the string input's parent div panel
                                         // to the main manifestedit div
                                         manifestedit.appendChild(div);
@@ -647,6 +757,77 @@
                                                 let newobj = obj[prop][item];
                                                 level++;
                                                 iterateobj(newobj, obj[prop]);
+                                            }
+                                        }
+                                        else if (isArray) {
+                                            if (prop == "Tags") {
+                                                let div = document.createElement('div');
+                                                div.setAttribute('class', 'itempanel');
+                                                let h4 = document.createElement('h4');
+                                                h4.innerText = prop;
+                                                let input = document.createElement('input');
+                                                input.type = "text";
+                                                input.value = "";
+
+                                                let btn = document.createElement('button');
+                                                btn.setAttribute('id', prop + "_btn");
+                                                btn.innerText = "Add New";
+
+                                                div.appendChild(h4);
+                                                div.appendChild(input);
+                                                div.appendChild(btn);
+                                                manifestedit.appendChild(div);
+                                                let ref = obj;
+                                                let propname = prop;
+                                                btn.addEventListener('click', function (event) {
+                                                    // Adds a new key/value pair to the object
+                                                    // and creates readonly input fields to display
+                                                    // them, with a Remove button to remove the item.
+                                                    // console.log(ref);
+                                                    // console.log(propname);
+                                                    // console.log(parent);
+                                                    // console.log(input.value);
+                                                    let tagsarray = ref[propname];
+                                                    tagsarray.push(input.value);
+                                                    //ref[propname][input.value] = input2.value;
+                                                    let i1 = document.createElement('input');
+                                                    i1.type = "text";
+                                                    i1.value = input.value;
+                                                    i1.setAttribute('readonly', 'true');
+
+                                                    let d2 = document.createElement('div');
+                                                    let b2 = document.createElement('button');
+                                                    b2.innerText = "Remove";
+
+                                                    d2.append(i1);
+                                                    d2.append(b2);
+                                                    // b2's reference to input.value will change when adding a new item.
+                                                    // Save the value to the dataset.iv property so we can use it as key
+                                                    // when deleting a property from an object.
+                                                    //b2.dataset.propname = propname;
+                                                    //b2.dataset.iv = input.value;
+                                                    b2.propname = propname; // do this instead so not visible in DOM
+                                                    b2.iv = input.value;
+                                                    b2.addEventListener('click', (e) => {
+                                                        //console.log(propname);
+                                                        //console.log(input.value);
+                                                        //console.log(e.target.iv);
+                                                        //delete ref[e.target.propname][e.target.iv];
+                                                        d2.remove();
+                                                        //let idx_removes = [];
+                                                        for (let i = 0; i < ref[e.target.propname].length; i++) {
+                                                            if (ref[e.target.propname][i] == e.target.iv) {
+                                                                //idx_removes.push(i);
+                                                                ref[e.target.propname].splice(i, 1);
+                                                            }
+                                                        }
+                                                        //for()
+                                                        console.log(currentmanifest);
+                                                    });
+                                                    h4.insertAdjacentElement('afterend', d2);
+                                                    console.log(currentmanifest);
+                                                    input.value = "";
+                                                });
                                             }
                                         }
                                         else {
@@ -725,9 +906,10 @@
                             }
 
                             let submitbtn = document.createElement("button");
+                            submitbtn.setAttribute('id', 'submitpackagebutton');
                             submitbtn.innerText = "Submit Package";
-                            submitbtn.addEventListener('click', async (e)=>{
-                                let response = await fetch('/api/package',{
+                            submitbtn.addEventListener('click', async (e) => {
+                                let response = await fetch('/api/package', {
                                     method: "POST",
                                     headers: {
                                         "Content-Type": "application/json"
@@ -736,8 +918,13 @@
                                 });
                                 let responseJson = await response.json();
                                 console.log(responseJson);
-                                if(responseJson.status == 'error') {
+                                if (responseJson.status == 'error') {
                                     alert(responseJson.errormessage);
+                                }
+                                else {
+                                    alert("PackageManifest added to repository.");
+                                    manifestedit.innerHTML = "";
+                                    currentmanifest = null;
                                 }
                             });
                             let ctrlpanel = document.createElement('div');
@@ -780,10 +967,10 @@
                             //manifestedit.innerHTML = _html;
                         });
                     }
-                    else if(response.status==204){
+                    else if (response.status == 204) {
                         alert("Type currently unsupported");
                     }
-                }).catch(err => { });
+                }).catch(err => {});
             });
         }
 

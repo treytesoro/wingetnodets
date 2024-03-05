@@ -8,20 +8,41 @@
 			],
 			"group": {
 				"kind": "build",
-				"isDefault": true
+				"isDefault": false
 			},
 			"label": "tsc: build - tsconfig.json"
 		},
 		{
-			"type":"shell",
+			"type": "shell",
 			"command": "./bin/copyfiles.sh",
 			"windows": {
 				"command": "./bin/copyfiles.ps1"
 			},
-			"label": "Build and copy",
-			"dependsOn":[
+			"label": "Build WingetNode",
+			"dependsOn": [
 				"tsc: build - tsconfig.json"
-			]
+			],
+			"problemMatcher": [],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"type": "shell",
+			"command": "./bin/copyfiles.sh",
+			"windows": {
+				"command": "./bin/copyfiles.ps1"
+			},
+			"label": "Debug WingetNode preLaunch",
+			"dependsOn": [
+				"tsc: build - tsconfig.json"
+			],
+			"problemMatcher": [],
+			"group": {
+				"kind": "test",
+				"isDefault": true
+			}
 		}
 	]
 }
