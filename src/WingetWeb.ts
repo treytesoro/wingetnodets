@@ -136,9 +136,45 @@ export class WingetWeb {
      * Express endpoints 
      */
     private createExpressEndpoints(): void {
+        
         this.app.get('/', (req, res) => {
-            //res.status(200).json({ 'status': 'ok' });
-            res.status(200).sendFile(__dirname + "/client/index.html");
+            /** Serve INDEX page */
+
+            let hostname = req.hostname;
+
+            let port = this.config.Server.WebConfig.httpPort;
+
+            let sslport = this.config.Server.WebConfig.httpsPort;
+
+            // THIS SUCKS - Don't create dynamic html this way
+            let linkstable = `
+            <div id="linksdescription">
+                <table>
+                    <tr>
+                        <td colspan="2">You have the following ports registered for this server.<br/></td>
+                    </tr>
+                    <tr>
+                        <td class="porttype">HTTP</td><td class="serverlink"><a href="http://${hostname}:${port}">Unsecure Link (port ${port})</a></td>
+                    </tr>
+                    <tr>
+                        <td class="porttype">HTTPS</td><td class="serverlink"><a href="https://${hostname}:${sslport}">Secure Link (port ${sslport})</a></td>
+                    </tr>
+                </table>
+            </div>
+            `
+            let content = fs.readFileSync(__dirname + "/client/index.html")
+
+            let contentString = content.toString();
+
+            contentString = contentString
+                    .replace("//{HOSTNAME}", `var hostname="${hostname}"`)
+                    .replace("//{PORT}", `var port="${port.toString()}"`)
+                    .replace("//{SSLPORT}", `var sslport="${sslport.toString()}"`)
+                    .replace("<!--validurls-->", (linkstable));
+            
+            res.status(200).send(contentString);
+
+            //res.status(200).sendFile(__dirname + "/client/index.html");
         });
 
         this.app.get('/getpowershells', (req, res) => {
@@ -210,7 +246,7 @@ export class WingetWeb {
                         res.status(200).json(OKSTATUS);
                     }
                     else if(platform == "linux") {
-                        let msipath = path.resolve(__dirname, "../msi.sh");
+                        let msipath = path.resolve(__dirname, "../ca/msi.sh");
                         let msi = spawn('/bin/bash', [msipath, 'inspect.msi']);
 
                         msi.stdout.on('data', (data) => {
@@ -227,7 +263,7 @@ export class WingetWeb {
                             pkg.PackageVersion = jobj.ProductVersion;
 
                             pkg.Description = "";
-                            pkg.ShortDescription = "";
+                            pkg.ShortDescription = "a short description";
                             pkg.Copyright = "";
                             pkg.PrivacyUrl = "";
                             pkg.PublisherUrl = "";
@@ -235,7 +271,7 @@ export class WingetWeb {
                             pkg.Tags = [];
                             pkg.Moniker = "";
                             pkg.Author= jobj.Manufacturer;
-                            pkg.License = "";
+                            pkg.License = "required license";
                             pkg.Installers = [
                                 {
                                     InstallerUrl: req.body.packageurl,
@@ -392,7 +428,7 @@ export class WingetWeb {
          * This endpoint is only meant for testing packages locally
          * during development. This should be disabled in a production
          * environment. Packages should be delivered from a dedicated content
-         * server (GitLFS, OneDrive, or any onprem web accessible content server).
+         * server (GitLFS, OneDrive, blob storage or any onprem web accessible content server).
          */
         if (this.config.ServePackages) {
             this.app.get('/api/downloads/:pkgname', (req, res) => {
@@ -490,22 +526,35 @@ export class WingetWeb {
                 console.trace(pkg);
             }
 
-            wingetmongo.MongoInsertDocument('packages', pkg).then(
-                result => {
-                    if (globalThis.ISDEBUG) console.log(result);
-                    res.status(200).json(OKSTATUS);
-                }
-            ).catch(
-                err => {
-                    if (globalThis.ISDEBUG) console.log(err);
-                    let errmsg:ERRORSTATUS = new ERRORSTATUS(err);
-                    res.status(200).json(errmsg);
-                }
-            ).finally(
-                () => {
+            let haspub = pkg.Publisher.trim() != "" ? true : false;
+            let haspkgname = pkg.PackageName.trim() != "" ? true : false;
+            let haslicense = pkg.License.trim() != "" ? true : false;
+            let hasshortdescription = pkg.ShortDescription.trim() != "" ? true : false;
 
-                }
-            );
+            if(haspub && haspkgname && haslicense && hasshortdescription)
+            {
+                wingetmongo.MongoInsertDocument('packages', pkg).then(
+                    result => {
+                        if (globalThis.ISDEBUG) console.log(result);
+                        res.status(200).json(OKSTATUS);
+                    }
+                ).catch(
+                    err => {
+                        if (globalThis.ISDEBUG) console.log(err);
+                        let errmsg:ERRORSTATUS = new ERRORSTATUS(err);
+                        res.status(200).json(errmsg);
+                    }
+                ).finally(
+                    () => {
+
+                    }
+                );
+            }
+            else {
+                if (globalThis.ISDEBUG) console.log("Missing values for new packagemanifest.");
+                let errmsg: ERRORSTATUS = new ERRORSTATUS("Missing values for new packagemanifest.");
+                res.status(200).json(errmsg);
+            }
         });
 
         this.app.post('/getcerts', (req, res) => {

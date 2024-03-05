@@ -6,8 +6,8 @@ services:
       - "7070:7070"
       - "7071:7071"
     volumes:
-      - "/mnt/c/Users/tgtesoro/source/repos/wingetnodets/docker/certs:/certs"
-      - "/mnt/c/Users/tgtesoro/source/repos/wingetnode/packages:/packages"
+      - "/mnt/c/Users/trey/source/repos/github/wingetnodets/docker/certs:/certs"
+      - "/mnt/c/Users/trey/source/repos/github/wingetnodets/packages:/packages"
     environment:
       WGN_MONGO_CONNECTIONSTRING: "mongodb://root:example@mongo:27017/"
       WGN_SERVERID: "DevTest"
@@ -20,8 +20,8 @@ services:
     image: mongo:latest
     restart: always
     volumes:
-      - "/home/tgtesoro/dockerdata/db:/data/db:rw"
-      - "/home/tgtesoro/dockerdata/configdb:/data/configdb:rw"
+      - "/home/trey/dockerdata/db:/data/db:rw"
+      - "/home/trey/dockerdata/configdb:/data/configdb:rw"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
@@ -34,5 +34,7 @@ services:
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_BASICAUTH_USERNAME: root
+      ME_CONFIG_BASICAUTH_PASSWORD: example
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
     
