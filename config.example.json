@@ -27,7 +27,7 @@
     "@MongoConnectString_description": "",
     "MongoConnectString": "mongodb://root:example@127.0.0.1:27017/",
 
-    "@PackagesPath_description": "For dev/test, This is the absolute path to the packages we're serving.",
+    "@PackagesPath_description": "For dev/test, This is the absolute path to the packages we're serving. You should use a dedicated http/https web accessible file server instead (blob storage, cdn, etc). ",
     "PackagesPath": "D:/Winget/packages",
 
     "@ServerPackages_description": "Boolean value to enable/disable package downloads from this server. This should not be used in production.",

@@ -57,13 +57,25 @@ export interface Package {
 }
 
 export interface Installer {
-    Architecture: 'x64' | 'x86' | 'arm',
-    InstallerType: 'msi' | 'msix' | 'exe' | 'nullsoft' | 'zip' | 'wix' | string,
-    InstallerUrl: string,
+    Architecture: 'x64' | 'x86' | 'arm'
+    InstallerIdentifier?: string
+    InstallerType: 'msi' | 'msix' | 'exe' | 'nullsoft' | 'zip' | 'wix' | string
+    InstallerUrl: string
     InstallerSha256: string
-    InstallMode?: 'silent' | 'silentWithProgress' | string,
+    InstallerLocale?:string
+    Platform?: string[]
+    MinimumOSVersion?: string
+    Scope?: "user" | "computer" | string
+    //InstallMode?: 'interactive' | 'silent' | 'silentWithProgress'
+    InstallModes?: string[]
     InstallerSwitches: {
         Silent?: string
+        SilentWithProgress?: string
+        Interactive?: string
+        InstallLocation?: string
+        Log?: string
+        Upgrade?: string
+        Custom?: string
     }
 }
 

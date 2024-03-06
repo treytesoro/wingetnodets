@@ -1,0 +1,1117 @@
+[
+  {
+    "Language Code": "1025",
+    "Description (informative)": "Arabic - Saudi Arabia",
+    "BCP 47 Code": "ar-SA"
+  },
+  {
+    "Language Code": "1026",
+    "Description (informative)": "Bulgarian",
+    "BCP 47 Code": "bg-BG"
+  },
+  {
+    "Language Code": "1027",
+    "Description (informative)": "Catalan",
+    "BCP 47 Code": "ca-ES"
+  },
+  {
+    "Language Code": "1028",
+    "Description (informative)": "Chinese - Taiwan",
+    "BCP 47 Code": "zh-TW"
+  },
+  {
+    "Language Code": "1029",
+    "Description (informative)": "Czech",
+    "BCP 47 Code": "cs-CZ"
+  },
+  {
+    "Language Code": "1030",
+    "Description (informative)": "Danish",
+    "BCP 47 Code": "da-DK"
+  },
+  {
+    "Language Code": "1031",
+    "Description (informative)": "German - Germany",
+    "BCP 47 Code": "de-DE"
+  },
+  {
+    "Language Code": "1032",
+    "Description (informative)": "Greek",
+    "BCP 47 Code": "el-GR"
+  },
+  {
+    "Language Code": "1033",
+    "Description (informative)": "English - United States",
+    "BCP 47 Code": "en-US"
+  },
+  {
+    "Language Code": "1034",
+    "Description (informative)": "Spanish - Spain (Traditional Sort)",
+    "BCP 47 Code": "es-ES"
+  },
+  {
+    "Language Code": "1035",
+    "Description (informative)": "Finnish",
+    "BCP 47 Code": "fi-FI"
+  },
+  {
+    "Language Code": "1036",
+    "Description (informative)": "French - France",
+    "BCP 47 Code": "fr-FR"
+  },
+  {
+    "Language Code": "1037",
+    "Description (informative)": "Hebrew",
+    "BCP 47 Code": "he-IL"
+  },
+  {
+    "Language Code": "1038",
+    "Description (informative)": "Hungarian",
+    "BCP 47 Code": "hu-HU"
+  },
+  {
+    "Language Code": "1039",
+    "Description (informative)": "Icelandic",
+    "BCP 47 Code": "is-IS"
+  },
+  {
+    "Language Code": "1040",
+    "Description (informative)": "Italian - Italy",
+    "BCP 47 Code": "it-IT"
+  },
+  {
+    "Language Code": "1041",
+    "Description (informative)": "Japanese",
+    "BCP 47 Code": "ja-JP"
+  },
+  {
+    "Language Code": "1042",
+    "Description (informative)": "Korean",
+    "BCP 47 Code": "ko-KR"
+  },
+  {
+    "Language Code": "1043",
+    "Description (informative)": "Dutch - Netherlands",
+    "BCP 47 Code": "nl-NL"
+  },
+  {
+    "Language Code": "1044",
+    "Description (informative)": "Norwegian (Bokm�l)",
+    "BCP 47 Code": "nb-NO"
+  },
+  {
+    "Language Code": "1045",
+    "Description (informative)": "Polish",
+    "BCP 47 Code": "pl-PL"
+  },
+  {
+    "Language Code": "1046",
+    "Description (informative)": "Portuguese - Brazil",
+    "BCP 47 Code": "pt-BR"
+  },
+  {
+    "Language Code": "1047",
+    "Description (informative)": "Rhaeto-Romanic",
+    "BCP 47 Code": "rm-CH"
+  },
+  {
+    "Language Code": "1048",
+    "Description (informative)": "Romanian",
+    "BCP 47 Code": "ro-RO"
+  },
+  {
+    "Language Code": "1049",
+    "Description (informative)": "Russian",
+    "BCP 47 Code": "ru-RU"
+  },
+  {
+    "Language Code": "1050",
+    "Description (informative)": "Croatian",
+    "BCP 47 Code": "hr-HR"
+  },
+  {
+    "Language Code": "1051",
+    "Description (informative)": "Slovak",
+    "BCP 47 Code": "sk-SK"
+  },
+  {
+    "Language Code": "1052",
+    "Description (informative)": "Albanian - Albania",
+    "BCP 47 Code": "sq-AL"
+  },
+  {
+    "Language Code": "1053",
+    "Description (informative)": "Swedish",
+    "BCP 47 Code": "sv-SE"
+  },
+  {
+    "Language Code": "1054",
+    "Description (informative)": "Thai",
+    "BCP 47 Code": "th-TH"
+  },
+  {
+    "Language Code": "1055",
+    "Description (informative)": "Turkish",
+    "BCP 47 Code": "tr-TR"
+  },
+  {
+    "Language Code": "1056",
+    "Description (informative)": "Urdu - Pakistan",
+    "BCP 47 Code": "ur-PK"
+  },
+  {
+    "Language Code": "1057",
+    "Description (informative)": "Indonesian",
+    "BCP 47 Code": "id-ID"
+  },
+  {
+    "Language Code": "1058",
+    "Description (informative)": "Ukrainian",
+    "BCP 47 Code": "uk-UA"
+  },
+  {
+    "Language Code": "1059",
+    "Description (informative)": "Belarusian",
+    "BCP 47 Code": "be-BY"
+  },
+  {
+    "Language Code": "1060",
+    "Description (informative)": "Slovenian",
+    "BCP 47 Code": "sl-SI"
+  },
+  {
+    "Language Code": "1061",
+    "Description (informative)": "Estonian",
+    "BCP 47 Code": "et-EE"
+  },
+  {
+    "Language Code": "1062",
+    "Description (informative)": "Latvian",
+    "BCP 47 Code": "lv-LV"
+  },
+  {
+    "Language Code": "1063",
+    "Description (informative)": "Lithuanian",
+    "BCP 47 Code": "lt-LT"
+  },
+  {
+    "Language Code": "1064",
+    "Description (informative)": "Tajik",
+    "BCP 47 Code": "tg-Cyrl-TJ"
+  },
+  {
+    "Language Code": "1065",
+    "Description (informative)": "Persian",
+    "BCP 47 Code": "fa-IR"
+  },
+  {
+    "Language Code": "1066",
+    "Description (informative)": "Vietnamese",
+    "BCP 47 Code": "vi-VN"
+  },
+  {
+    "Language Code": "1067",
+    "Description (informative)": "Armenian - Armenia",
+    "BCP 47 Code": "hy-AM"
+  },
+  {
+    "Language Code": "1068",
+    "Description (informative)": "Azerbaijani (Latin)",
+    "BCP 47 Code": "az-Latn-AZ"
+  },
+  {
+    "Language Code": "1069",
+    "Description (informative)": "Basque",
+    "BCP 47 Code": "eu-ES"
+  },
+  {
+    "Language Code": "1070",
+    "Description (informative)": "Sorbian",
+    "BCP 47 Code": "wen-DE"
+  },
+  {
+    "Language Code": "1071",
+    "Description (informative)": "Macedonian",
+    "BCP 47 Code": "mk-MK"
+  },
+  {
+    "Language Code": "1072",
+    "Description (informative)": "Sutu",
+    "BCP 47 Code": "st-ZA"
+  },
+  {
+    "Language Code": "1073",
+    "Description (informative)": "Tsonga",
+    "BCP 47 Code": "ts-ZA"
+  },
+  {
+    "Language Code": "1074",
+    "Description (informative)": "Tswana",
+    "BCP 47 Code": "tn-ZA"
+  },
+  {
+    "Language Code": "1075",
+    "Description (informative)": "Venda",
+    "BCP 47 Code": "ven-ZA"
+  },
+  {
+    "Language Code": "1076",
+    "Description (informative)": "Xhosa",
+    "BCP 47 Code": "xh-ZA"
+  },
+  {
+    "Language Code": "1077",
+    "Description (informative)": "Zulu",
+    "BCP 47 Code": "zu-ZA"
+  },
+  {
+    "Language Code": "1078",
+    "Description (informative)": "Afrikaans - South Africa",
+    "BCP 47 Code": "af-ZA"
+  },
+  {
+    "Language Code": "1079",
+    "Description (informative)": "Georgian",
+    "BCP 47 Code": "ka-GE"
+  },
+  {
+    "Language Code": "1080",
+    "Description (informative)": "Faroese",
+    "BCP 47 Code": "fo-FO"
+  },
+  {
+    "Language Code": "1081",
+    "Description (informative)": "Hindi",
+    "BCP 47 Code": "hi-IN"
+  },
+  {
+    "Language Code": "1082",
+    "Description (informative)": "Maltese",
+    "BCP 47 Code": "mt-MT"
+  },
+  {
+    "Language Code": "1083",
+    "Description (informative)": "Sami",
+    "BCP 47 Code": "se-NO"
+  },
+  {
+    "Language Code": "1084",
+    "Description (informative)": "Scottish Gaelic",
+    "BCP 47 Code": "gd-GB"
+  },
+  {
+    "Language Code": "1085",
+    "Description (informative)": "Yiddish",
+    "BCP 47 Code": "yi"
+  },
+  {
+    "Language Code": "1086",
+    "Description (informative)": "Malay - Malaysia",
+    "BCP 47 Code": "ms-MY"
+  },
+  {
+    "Language Code": "1087",
+    "Description (informative)": "Kazakh",
+    "BCP 47 Code": "kk-KZ"
+  },
+  {
+    "Language Code": "1088",
+    "Description (informative)": "Kyrgyz (Cyrillic)",
+    "BCP 47 Code": "ky-KG"
+  },
+  {
+    "Language Code": "1089",
+    "Description (informative)": "Swahili",
+    "BCP 47 Code": "sw-KE"
+  },
+  {
+    "Language Code": "1090",
+    "Description (informative)": "Turkmen",
+    "BCP 47 Code": "tk-TM"
+  },
+  {
+    "Language Code": "1091",
+    "Description (informative)": "Uzbek (Latin)",
+    "BCP 47 Code": "uz-Latn-UZ"
+  },
+  {
+    "Language Code": "1092",
+    "Description (informative)": "Tatar",
+    "BCP 47 Code": "tt-RU"
+  },
+  {
+    "Language Code": "1093",
+    "Description (informative)": "Bengali (India)",
+    "BCP 47 Code": "bn-IN"
+  },
+  {
+    "Language Code": "1094",
+    "Description (informative)": "Punjabi",
+    "BCP 47 Code": "pa-IN"
+  },
+  {
+    "Language Code": "1095",
+    "Description (informative)": "Gujarati",
+    "BCP 47 Code": "gu-IN"
+  },
+  {
+    "Language Code": "1096",
+    "Description (informative)": "Odia",
+    "BCP 47 Code": "or-IN"
+  },
+  {
+    "Language Code": "1097",
+    "Description (informative)": "Tamil",
+    "BCP 47 Code": "ta-IN"
+  },
+  {
+    "Language Code": "1098",
+    "Description (informative)": "Telugu",
+    "BCP 47 Code": "te-IN"
+  },
+  {
+    "Language Code": "1099",
+    "Description (informative)": "Kannada",
+    "BCP 47 Code": "kn-IN"
+  },
+  {
+    "Language Code": "1100",
+    "Description (informative)": "Malayalam",
+    "BCP 47 Code": "ml-IN"
+  },
+  {
+    "Language Code": "1101",
+    "Description (informative)": "Assamese",
+    "BCP 47 Code": "as-IN"
+  },
+  {
+    "Language Code": "1102",
+    "Description (informative)": "Marathi",
+    "BCP 47 Code": "mr-IN"
+  },
+  {
+    "Language Code": "1103",
+    "Description (informative)": "Sanskrit",
+    "BCP 47 Code": "sa-IN"
+  },
+  {
+    "Language Code": "1104",
+    "Description (informative)": "Mongolian (Cyrillic)",
+    "BCP 47 Code": "mn-MN"
+  },
+  {
+    "Language Code": "1105",
+    "Description (informative)": "Tibetan - People's Republic of China",
+    "BCP 47 Code": "bo-CN"
+  },
+  {
+    "Language Code": "1106",
+    "Description (informative)": "Welsh",
+    "BCP 47 Code": "cy-GB"
+  },
+  {
+    "Language Code": "1107",
+    "Description (informative)": "Khmer",
+    "BCP 47 Code": "km-KH"
+  },
+  {
+    "Language Code": "1108",
+    "Description (informative)": "Lao",
+    "BCP 47 Code": "lo-LA"
+  },
+  {
+    "Language Code": "1109",
+    "Description (informative)": "Burmese",
+    "BCP 47 Code": "my-MM"
+  },
+  {
+    "Language Code": "1110",
+    "Description (informative)": "Galician",
+    "BCP 47 Code": "gl-ES"
+  },
+  {
+    "Language Code": "1111",
+    "Description (informative)": "Konkani",
+    "BCP 47 Code": "kok-IN"
+  },
+  {
+    "Language Code": "1112",
+    "Description (informative)": "Manipuri",
+    "BCP 47 Code": "mni"
+  },
+  {
+    "Language Code": "1113",
+    "Description (informative)": "Sindhi - India",
+    "BCP 47 Code": "sd-IN"
+  },
+  {
+    "Language Code": "1114",
+    "Description (informative)": "Syriac",
+    "BCP 47 Code": "syr-SY"
+  },
+  {
+    "Language Code": "1115",
+    "Description (informative)": "Sinhalese - Sri Lanka",
+    "BCP 47 Code": "si-LK"
+  },
+  {
+    "Language Code": "1116",
+    "Description (informative)": "Cherokee - United States",
+    "BCP 47 Code": "chr-US"
+  },
+  {
+    "Language Code": "1117",
+    "Description (informative)": "Inuktitut",
+    "BCP 47 Code": "iu-Cans-CA"
+  },
+  {
+    "Language Code": "1118",
+    "Description (informative)": "Amharic - Ethiopia",
+    "BCP 47 Code": "am-ET"
+  },
+  {
+    "Language Code": "1119",
+    "Description (informative)": "Tamazight (Arabic)",
+    "BCP 47 Code": "tmz"
+  },
+  {
+    "Language Code": "1120",
+    "Description (informative)": "Kashmiri (Arabic)",
+    "BCP 47 Code": "ks-Arab-IN"
+  },
+  {
+    "Language Code": "1121",
+    "Description (informative)": "Nepali",
+    "BCP 47 Code": "ne-NP"
+  },
+  {
+    "Language Code": "1122",
+    "Description (informative)": "Frisian - Netherlands",
+    "BCP 47 Code": "fy-NL"
+  },
+  {
+    "Language Code": "1123",
+    "Description (informative)": "Pashto",
+    "BCP 47 Code": "ps-AF"
+  },
+  {
+    "Language Code": "1124",
+    "Description (informative)": "Filipino",
+    "BCP 47 Code": "fil-PH"
+  },
+  {
+    "Language Code": "1125",
+    "Description (informative)": "Divehi",
+    "BCP 47 Code": "dv-MV"
+  },
+  {
+    "Language Code": "1126",
+    "Description (informative)": "Edo",
+    "BCP 47 Code": "bin-NG"
+  },
+  {
+    "Language Code": "1127",
+    "Description (informative)": "Fulfulde - Nigeria",
+    "BCP 47 Code": "fuv-NG"
+  },
+  {
+    "Language Code": "1128",
+    "Description (informative)": "Hausa - Nigeria",
+    "BCP 47 Code": "ha-Latn-NG"
+  },
+  {
+    "Language Code": "1129",
+    "Description (informative)": "Ibibio - Nigeria",
+    "BCP 47 Code": "ibb-NG"
+  },
+  {
+    "Language Code": "1130",
+    "Description (informative)": "Yoruba",
+    "BCP 47 Code": "yo-NG"
+  },
+  {
+    "Language Code": "1131",
+    "Description (informative)": "Quecha - Bolivia",
+    "BCP 47 Code": "quz-BO"
+  },
+  {
+    "Language Code": "1132",
+    "Description (informative)": "Sepedi",
+    "BCP 47 Code": "nso-ZA"
+  },
+  {
+    "Language Code": "1136",
+    "Description (informative)": "Igbo - Nigeria",
+    "BCP 47 Code": "ig-NG"
+  },
+  {
+    "Language Code": "1137",
+    "Description (informative)": "Kanuri - Nigeria",
+    "BCP 47 Code": "kr-NG"
+  },
+  {
+    "Language Code": "1138",
+    "Description (informative)": "Oromo",
+    "BCP 47 Code": "gaz-ET"
+  },
+  {
+    "Language Code": "1139",
+    "Description (informative)": "Tigrigna - Ethiopia",
+    "BCP 47 Code": "ti-ER"
+  },
+  {
+    "Language Code": "1140",
+    "Description (informative)": "Guarani - Paraguay",
+    "BCP 47 Code": "gn-PY"
+  },
+  {
+    "Language Code": "1141",
+    "Description (informative)": "Hawaiian - United States",
+    "BCP 47 Code": "haw-US"
+  },
+  {
+    "Language Code": "1142",
+    "Description (informative)": "Latin",
+    "BCP 47 Code": "la"
+  },
+  {
+    "Language Code": "1143",
+    "Description (informative)": "Somali",
+    "BCP 47 Code": "so-SO"
+  },
+  {
+    "Language Code": "1144",
+    "Description (informative)": "Yi",
+    "BCP 47 Code": "ii-CN"
+  },
+  {
+    "Language Code": "1145",
+    "Description (informative)": "Papiamentu",
+    "BCP 47 Code": "pap-AN"
+  },
+  {
+    "Language Code": "1152",
+    "Description (informative)": "Uighur - China",
+    "BCP 47 Code": "ug-Arab-CN"
+  },
+  {
+    "Language Code": "1153",
+    "Description (informative)": "Maori - New Zealand",
+    "BCP 47 Code": "mi-NZ"
+  },
+  {
+    "Language Code": "2049",
+    "Description (informative)": "Arabic - Iraq",
+    "BCP 47 Code": "ar-IQ"
+  },
+  {
+    "Language Code": "2052",
+    "Description (informative)": "Chinese - People's Republic of China",
+    "BCP 47 Code": "zh-CN"
+  },
+  {
+    "Language Code": "2055",
+    "Description (informative)": "German - Switzerland",
+    "BCP 47 Code": "de-CH"
+  },
+  {
+    "Language Code": "2057",
+    "Description (informative)": "English - United Kingdom",
+    "BCP 47 Code": "en-GB"
+  },
+  {
+    "Language Code": "2058",
+    "Description (informative)": "Spanish - Mexico",
+    "BCP 47 Code": "es-MX"
+  },
+  {
+    "Language Code": "2060",
+    "Description (informative)": "French - Belgium",
+    "BCP 47 Code": "fr-BE"
+  },
+  {
+    "Language Code": "2064",
+    "Description (informative)": "Italian - Switzerland",
+    "BCP 47 Code": "it-CH"
+  },
+  {
+    "Language Code": "2067",
+    "Description (informative)": "Dutch - Belgium",
+    "BCP 47 Code": "nl-BE"
+  },
+  {
+    "Language Code": "2068",
+    "Description (informative)": "Norwegian (Nynorsk)",
+    "BCP 47 Code": "nn-NO"
+  },
+  {
+    "Language Code": "2070",
+    "Description (informative)": "Portuguese - Portugal",
+    "BCP 47 Code": "pt-PT"
+  },
+  {
+    "Language Code": "2072",
+    "Description (informative)": "Romanian - Moldova",
+    "BCP 47 Code": "ro-MD"
+  },
+  {
+    "Language Code": "2073",
+    "Description (informative)": "Russian - Moldava",
+    "BCP 47 Code": "ru-MD"
+  },
+  {
+    "Language Code": "2074",
+    "Description (informative)": "Serbian (Latin)",
+    "BCP 47 Code": "sr-Latn-CS"
+  },
+  {
+    "Language Code": "2077",
+    "Description (informative)": "Swedish - Finland",
+    "BCP 47 Code": "sv-FI"
+  },
+  {
+    "Language Code": "2080",
+    "Description (informative)": "Urdu - India",
+    "BCP 47 Code": "ur-IN"
+  },
+  {
+    "Language Code": "2092",
+    "Description (informative)": "Azerbaijani (Cyrillic)",
+    "BCP 47 Code": "az-Cyrl-AZ"
+  },
+  {
+    "Language Code": "2108",
+    "Description (informative)": "Irish",
+    "BCP 47 Code": "ga-IE"
+  },
+  {
+    "Language Code": "2110",
+    "Description (informative)": "Malay - Brunei Darussalam",
+    "BCP 47 Code": "ms-BN"
+  },
+  {
+    "Language Code": "2115",
+    "Description (informative)": "Uzbek (Cyrillic)",
+    "BCP 47 Code": "uz-Cyrl-UZ"
+  },
+  {
+    "Language Code": "2117",
+    "Description (informative)": "Bangla",
+    "BCP 47 Code": "bn-BD"
+  },
+  {
+    "Language Code": "2118",
+    "Description (informative)": "Punjabi (Pakistan)",
+    "BCP 47 Code": "pa-PK"
+  },
+  {
+    "Language Code": "2128",
+    "Description (informative)": "Mongolian (Mongolian)",
+    "BCP 47 Code": "mn-Mong-CN"
+  },
+  {
+    "Language Code": "2129",
+    "Description (informative)": "Tibetan - Bhutan",
+    "BCP 47 Code": "bo-BT"
+  },
+  {
+    "Language Code": "2137",
+    "Description (informative)": "Sindhi - Pakistan",
+    "BCP 47 Code": "sd-PK"
+  },
+  {
+    "Language Code": "2143",
+    "Description (informative)": "Tamazight (Latin)",
+    "BCP 47 Code": "tzm-Latn-DZ"
+  },
+  {
+    "Language Code": "2144",
+    "Description (informative)": "Kashmiri (Devanagari)",
+    "BCP 47 Code": "ks-Deva-IN"
+  },
+  {
+    "Language Code": "2145",
+    "Description (informative)": "Nepali - India",
+    "BCP 47 Code": "ne-IN"
+  },
+  {
+    "Language Code": "2155",
+    "Description (informative)": "Quecha - Ecuador",
+    "BCP 47 Code": "quz-EC"
+  },
+  {
+    "Language Code": "2163",
+    "Description (informative)": "Tigrigna - Eritrea",
+    "BCP 47 Code": "ti-ET"
+  },
+  {
+    "Language Code": "3073",
+    "Description (informative)": "Arabic - Egypt",
+    "BCP 47 Code": "ar-EG"
+  },
+  {
+    "Language Code": "3076",
+    "Description (informative)": "Chinese - Hong Kong SAR",
+    "BCP 47 Code": "zh-HK"
+  },
+  {
+    "Language Code": "3079",
+    "Description (informative)": "German - Austria",
+    "BCP 47 Code": "de-AT"
+  },
+  {
+    "Language Code": "3081",
+    "Description (informative)": "English - Australia",
+    "BCP 47 Code": "en-AU"
+  },
+  {
+    "Language Code": "3082",
+    "Description (informative)": "Spanish - Spain (Modern Sort)",
+    "BCP 47 Code": "es-ES"
+  },
+  {
+    "Language Code": "3084",
+    "Description (informative)": "French - Canada",
+    "BCP 47 Code": "fr-CA"
+  },
+  {
+    "Language Code": "3098",
+    "Description (informative)": "Serbian (Cyrillic)",
+    "BCP 47 Code": "sr-Cyrl-CS"
+  },
+  {
+    "Language Code": "3179",
+    "Description (informative)": "Quecha - Peru",
+    "BCP 47 Code": "quz-PE"
+  },
+  {
+    "Language Code": "4097",
+    "Description (informative)": "Arabic - Libya",
+    "BCP 47 Code": "ar-LY"
+  },
+  {
+    "Language Code": "4100",
+    "Description (informative)": "Chinese - Singapore",
+    "BCP 47 Code": "zh-SG"
+  },
+  {
+    "Language Code": "4103",
+    "Description (informative)": "German - Luxembourg",
+    "BCP 47 Code": "de-LU"
+  },
+  {
+    "Language Code": "4105",
+    "Description (informative)": "English - Canada",
+    "BCP 47 Code": "en-CA"
+  },
+  {
+    "Language Code": "4106",
+    "Description (informative)": "Spanish - Guatemala",
+    "BCP 47 Code": "es-GT"
+  },
+  {
+    "Language Code": "4108",
+    "Description (informative)": "French - Switzerland",
+    "BCP 47 Code": "fr-CH"
+  },
+  {
+    "Language Code": "4122",
+    "Description (informative)": "Croatian (Bosnia/Herzegovina)",
+    "BCP 47 Code": "hr-BA"
+  },
+  {
+    "Language Code": "5121",
+    "Description (informative)": "Arabic - Algeria",
+    "BCP 47 Code": "ar-DZ"
+  },
+  {
+    "Language Code": "5124",
+    "Description (informative)": "Chinese - Macao SAR",
+    "BCP 47 Code": "zh-MO"
+  },
+  {
+    "Language Code": "5127",
+    "Description (informative)": "German - Liechtenstein",
+    "BCP 47 Code": "de-LI"
+  },
+  {
+    "Language Code": "5129",
+    "Description (informative)": "English - New Zealand",
+    "BCP 47 Code": "en-NZ"
+  },
+  {
+    "Language Code": "5130",
+    "Description (informative)": "Spanish - Costa Rica",
+    "BCP 47 Code": "es-CR"
+  },
+  {
+    "Language Code": "5132",
+    "Description (informative)": "French - Luxembourg",
+    "BCP 47 Code": "fr-LU"
+  },
+  {
+    "Language Code": "5146",
+    "Description (informative)": "Bosnian (Bosnia/Herzegovina)",
+    "BCP 47 Code": "bs-Latn-BA"
+  },
+  {
+    "Language Code": "6145",
+    "Description (informative)": "Arabic - Morocco",
+    "BCP 47 Code": "ar-MO"
+  },
+  {
+    "Language Code": "6153",
+    "Description (informative)": "English - Ireland",
+    "BCP 47 Code": "en-IE"
+  },
+  {
+    "Language Code": "6154",
+    "Description (informative)": "Spanish - Panama",
+    "BCP 47 Code": "es-PA"
+  },
+  {
+    "Language Code": "6156",
+    "Description (informative)": "French - Monaco",
+    "BCP 47 Code": "fr-MC"
+  },
+  {
+    "Language Code": "7169",
+    "Description (informative)": "Arabic - Tunisia",
+    "BCP 47 Code": "ar-TN"
+  },
+  {
+    "Language Code": "7177",
+    "Description (informative)": "English - South Africa",
+    "BCP 47 Code": "en-ZA"
+  },
+  {
+    "Language Code": "7178",
+    "Description (informative)": "Spanish - Dominican Republic",
+    "BCP 47 Code": "es-DO"
+  },
+  {
+    "Language Code": "7180",
+    "Description (informative)": "French - West Indies",
+    "BCP 47 Code": "fr-029"
+  },
+  {
+    "Language Code": "8193",
+    "Description (informative)": "Arabic - Oman",
+    "BCP 47 Code": "ar-OM"
+  },
+  {
+    "Language Code": "8201",
+    "Description (informative)": "English - Jamaica",
+    "BCP 47 Code": "en-JM"
+  },
+  {
+    "Language Code": "8202",
+    "Description (informative)": "Spanish - Venezuela",
+    "BCP 47 Code": "es-VE"
+  },
+  {
+    "Language Code": "8204",
+    "Description (informative)": "French - Reunion",
+    "BCP 47 Code": "fr-RE"
+  },
+  {
+    "Language Code": "9217",
+    "Description (informative)": "Arabic - Yemen",
+    "BCP 47 Code": "ar-YE"
+  },
+  {
+    "Language Code": "9225",
+    "Description (informative)": "English - Caribbean",
+    "BCP 47 Code": "en-029"
+  },
+  {
+    "Language Code": "9226",
+    "Description (informative)": "Spanish - Colombia",
+    "BCP 47 Code": "es-CO"
+  },
+  {
+    "Language Code": "9228",
+    "Description (informative)": "French - Democratic Rep. of Congo",
+    "BCP 47 Code": "fr-CG"
+  },
+  {
+    "Language Code": "10241",
+    "Description (informative)": "Arabic - Syria",
+    "BCP 47 Code": "ar-SY"
+  },
+  {
+    "Language Code": "10249",
+    "Description (informative)": "English - Belize",
+    "BCP 47 Code": "en-BZ"
+  },
+  {
+    "Language Code": "10250",
+    "Description (informative)": "Spanish - Peru",
+    "BCP 47 Code": "es-PE"
+  },
+  {
+    "Language Code": "10252",
+    "Description (informative)": "French - Senegal",
+    "BCP 47 Code": "fr-SN"
+  },
+  {
+    "Language Code": "11265",
+    "Description (informative)": "Arabic - Jordan",
+    "BCP 47 Code": "ar-JO"
+  },
+  {
+    "Language Code": "11273",
+    "Description (informative)": "English - Trinidad",
+    "BCP 47 Code": "en-TT"
+  },
+  {
+    "Language Code": "11274",
+    "Description (informative)": "Spanish - Argentina",
+    "BCP 47 Code": "es-AR"
+  },
+  {
+    "Language Code": "11276",
+    "Description (informative)": "French - Cameroon",
+    "BCP 47 Code": "fr-CM"
+  },
+  {
+    "Language Code": "12289",
+    "Description (informative)": "Arabic - Lebanon",
+    "BCP 47 Code": "ar-LB"
+  },
+  {
+    "Language Code": "12297",
+    "Description (informative)": "English - Zimbabwe",
+    "BCP 47 Code": "en-ZW"
+  },
+  {
+    "Language Code": "12298",
+    "Description (informative)": "Spanish - Ecuador",
+    "BCP 47 Code": "es-EC"
+  },
+  {
+    "Language Code": "12300",
+    "Description (informative)": "French - Cote d'Ivoire",
+    "BCP 47 Code": "fr-CI"
+  },
+  {
+    "Language Code": "13313",
+    "Description (informative)": "Arabic - Kuwait",
+    "BCP 47 Code": "ar-KW"
+  },
+  {
+    "Language Code": "13321",
+    "Description (informative)": "English - Philippines",
+    "BCP 47 Code": "en-PH"
+  },
+  {
+    "Language Code": "13322",
+    "Description (informative)": "Spanish - Chile",
+    "BCP 47 Code": "es-CL"
+  },
+  {
+    "Language Code": "13324",
+    "Description (informative)": "French - Mali",
+    "BCP 47 Code": "fr-ML"
+  },
+  {
+    "Language Code": "14337",
+    "Description (informative)": "Arabic - U.A.E.",
+    "BCP 47 Code": "ar-AE"
+  },
+  {
+    "Language Code": "14345",
+    "Description (informative)": "English - Indonesia",
+    "BCP 47 Code": "en-ID"
+  },
+  {
+    "Language Code": "14346",
+    "Description (informative)": "Spanish - Uruguay",
+    "BCP 47 Code": "es-UY"
+  },
+  {
+    "Language Code": "14348",
+    "Description (informative)": "French - Morocco",
+    "BCP 47 Code": "fr-MA"
+  },
+  {
+    "Language Code": "15361",
+    "Description (informative)": "Arabic - Bahrain",
+    "BCP 47 Code": "ar-BH"
+  },
+  {
+    "Language Code": "15369",
+    "Description (informative)": "English - Hong Kong SAR",
+    "BCP 47 Code": "en-HK"
+  },
+  {
+    "Language Code": "15370",
+    "Description (informative)": "Spanish - Paraguay",
+    "BCP 47 Code": "es-PY"
+  },
+  {
+    "Language Code": "15372",
+    "Description (informative)": "French - Haiti",
+    "BCP 47 Code": "fr-HT"
+  },
+  {
+    "Language Code": "16385",
+    "Description (informative)": "Arabic - Qatar",
+    "BCP 47 Code": "ar-QA"
+  },
+  {
+    "Language Code": "16393",
+    "Description (informative)": "English - India",
+    "BCP 47 Code": "en-IN"
+  },
+  {
+    "Language Code": "16394",
+    "Description (informative)": "Spanish - Bolivia",
+    "BCP 47 Code": "es-BO"
+  },
+  {
+    "Language Code": "17417",
+    "Description (informative)": "English - Malaysia",
+    "BCP 47 Code": "en-MY"
+  },
+  {
+    "Language Code": "17418",
+    "Description (informative)": "Spanish - El Salvador",
+    "BCP 47 Code": "es-SV"
+  },
+  {
+    "Language Code": "18441",
+    "Description (informative)": "English - Singapore",
+    "BCP 47 Code": "en-SG"
+  },
+  {
+    "Language Code": "18442",
+    "Description (informative)": "Spanish - Honduras",
+    "BCP 47 Code": "es-HN"
+  },
+  {
+    "Language Code": "19466",
+    "Description (informative)": "Spanish - Nicaragua",
+    "BCP 47 Code": "es-NI"
+  },
+  {
+    "Language Code": "20490",
+    "Description (informative)": "Spanish - Puerto Rico",
+    "BCP 47 Code": "es-PR"
+  },
+  {
+    "Language Code": "21514",
+    "Description (informative)": "Spanish - United States",
+    "BCP 47 Code": "es-US"
+  },
+  {
+    "Language Code": "58378",
+    "Description (informative)": "Spanish - Latin America",
+    "BCP 47 Code": "es-419"
+  },
+  {
+    "Language Code": "58380",
+    "Description (informative)": "French - North Africa",
+    "BCP 47 Code": "fr-015"
+  }
+]
