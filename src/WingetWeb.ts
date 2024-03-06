@@ -17,7 +17,7 @@ import {
 } from "./WingetMongo";
 import * as process from "process";
 import { spawn } from "child_process";
-
+let locales: any = require('./locales.json') as any;
 
 /**
  * The server data is returned from the /information endpoint
@@ -258,7 +258,13 @@ export class WingetWeb {
                             let pkg:Package = {} as Package;
                             pkg.PackageIdentifier = jobj.Manufacturer + "." + jobj.ProductName;
                             pkg.Publisher = jobj.Manufacturer;
-                            pkg.PackageLocale = jobj.ProductLanguage; // TODO: convert using locales.json
+                            let pkglocale = 'en';
+                            for(let locale of locales) {
+                                if(locale["Language Code"].toUpperCase() == jobj.ProductLanguage.toUpperCase()){
+                                    pkglocale = locale["BCP 47 Code"];
+                                }
+                            }
+                            pkg.PackageLocale = pkglocale; // TODO: convert using locales.json
                             pkg.PackageName = jobj.ProductName;
                             pkg.PackageVersion = jobj.ProductVersion;
 
@@ -277,8 +283,9 @@ export class WingetWeb {
                                     InstallerUrl: req.body.packageurl,
                                     InstallerSha256: sha256,
                                     InstallerType: "msi",
-                                    InstallMode: "",
+                                    //InstallMode: "",
                                     Architecture: arch,
+                                    InstallModes: [],
                                     InstallerSwitches: {
 
                                     }
@@ -379,12 +386,7 @@ export class WingetWeb {
                             PackageIdentifier: matches[i].PackageIdentifier,
                             PackageName: matches[i].PackageName,
                             Publisher: matches[i].Publisher,
-                            PackageVersion: matches[i].PackageVersion,
-                            PackageLocale: matches[i].PackageLocale,
-                            Channel: 'unused',
-                            Versions: [] as any as [{ PackageVersion: string }],
-                            Moniker: matches[i].Moniker,
-                            Match: matches[i].Moniker
+                            Versions: [] as any as [{ PackageVersion: string }]
                         };
                     }
                     else if (filters !== undefined || queryobject !== undefined) {
@@ -392,19 +394,11 @@ export class WingetWeb {
                             PackageIdentifier: matches[i].PackageIdentifier,
                             PackageName: matches[i].PackageName,
                             Publisher: matches[i].Publisher,
-                            //PackageVersion: matches[i].PackageVersion,
-                            //Channel: 'unused',
-                            Versions: [] as any as [{ PackageVersion: string, DefaultLocale: { Moniker: string} }],
-                            RequestMatch: { Keyword: "coffee"},
-                            PackageMatchField: "Moniker"
-                            //Moniker: matches[i].Moniker,
-                            //Match: matches[i].Moniker
+                            Versions: [] as any as [{ PackageVersion: string, DefaultLocale: { Moniker: string} }]
                         };
                     }
                     dobject.Versions.push({
-                        PackageVersion: matches[i].PackageVersion,
-                        RequestMatch: { Keyword: "coffee"},
-                        PackageMatchField: "Moniker"
+                        PackageVersion: matches[i].PackageVersion
                     });
 
                     json.Data.push(dobject);
@@ -442,7 +436,22 @@ export class WingetWeb {
             });
         }
 
-        this.app.get('/api/packages', (req, res) => {
+        /** Custom endpoint not defined by official restsource */
+        this.app.post('/api/getpackages', async (req, res)=>{
+            let filter = req.body.filter;
+            let wingetmongo = new WingetMongo(this.config);
+
+            let packages = await wingetmongo.MongoQuery("packages", filter, "Substring");
+
+            res.status(200).json(packages);
+        });
+
+        /** 
+         * This is an official restsource endpoint that we're not currently using.
+         * It doesn't seem to be required by the winget-cli.
+         * */
+        this.app.get('/api/packages/*', (req, res) => {
+            console.log(req.params[0]);
             res.status(200).json(OKSTATUS);
         });
 

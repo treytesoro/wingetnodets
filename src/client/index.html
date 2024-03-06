@@ -212,7 +212,19 @@
 
         </div>
 
-        <div style="background-color: #dddddd; border-radius: 6px; padding: 10px;">
+        <div id="packagespanel">
+            <button id="getpackages">Show Packages</button>
+            <table id="packagestable">
+                <thead>
+
+                </thead>
+                <tbody id="packagesbody">
+
+                </tbody>
+            </table>
+        </div>
+
+        <div id="helppanel" style="background-color: #dddddd; border-radius: 6px; padding: 10px;">
             <div>
                 You can use the following powershell scripts locally to inspect/upload packages manifests.
             </div>
@@ -553,6 +565,7 @@
                 document.querySelector("#gencertpanel").style.display = 'block';
             }
             init();
+            
         });
 
         var init = () => {
@@ -570,6 +583,7 @@
             var packageurl = document.getElementById("packageurl");
             var manifestedit = document.getElementById("manifestedit");
             var packagetype = document.getElementById("packagetype");
+            var getpackages = document.getElementById("getpackages");
 
             var getcerts = () => {
                 console.log("Getting certs");
@@ -636,11 +650,48 @@
                 return ismatch;
             }
 
-            var eventhandlers = [];
+            //var eventhandlers = [];
+
+            var _getpackages = () => {
+                packagesbody.replaceChildren();
+                fetch("/api/getpackages", {
+                    "method": "POST",
+                    "headers": {
+                        "Content-Type": "application/json"
+                    },
+                    "body": JSON.stringify({ filter: "" })
+                }).then(async response => {
+                    let obj = await response.json();
+                    console.log(obj);
+                    let packagesbody = document.getElementById('packagesbody');
+                    for (item in obj) {
+                        let tr = document.createElement('tr');
+                        let tdpkgid = document.createElement('td');
+                        let tdpkgname = document.createElement('td');
+                        let tdpkgpublisher = document.createElement('td');
+                        let tdpkgversion = document.createElement('td');
+                        tdpkgid.innerText = obj[item]['PackageIdentifier']
+                        tdpkgname.innerText = obj[item]['PackageName'];
+                        tdpkgpublisher.innerText = obj[item]['Publisher'];
+                        tdpkgversion.innerText = obj[item]['PackageVersion'];
+                        tr.appendChild(tdpkgid);
+                        tr.appendChild(tdpkgname);
+                        tr.appendChild(tdpkgpublisher);
+                        tr.appendChild(tdpkgversion);
+                        packagesbody.appendChild(tr);
+                    }
+                }).catch(err => {
+                    console.log(err);
+                });
+            }
+
+            getpackages.addEventListener('click', async (e)=>{
+                _getpackages();
+            });
 
             var currentmanifest = null;
             inspectbtn.addEventListener('click', (e) => {
-                let handlers = eventhandlers;
+                //let handlers = eventhandlers;
                 manifestedit.innerHTML = "";
                 currentmanifest = null;
                 fetch("/inspectmsi", {
@@ -829,77 +880,178 @@
                                                     input.value = "";
                                                 });
                                             }
+                                            if (prop == "InstallModes") {
+                                                let div = document.createElement('div');
+                                                div.setAttribute('class', 'itempanel');
+                                                let h4 = document.createElement('h4');
+                                                h4.innerText = prop;
+                                                let desc = document.createElement('div');
+                                                desc.innerText = "Add the install modes supported by the installer.";
+                                                let input = document.createElement('select');
+                                                let optionsArray = [
+                                                    "",
+                                                    "silent",
+                                                    "silentWithProgress",
+                                                    "interactive"
+                                                ]
+                                                for (let opt in optionsArray) {
+                                                    let optionElem = document.createElement('option');
+                                                    optionElem.value = optionsArray[opt];
+                                                    optionElem.innerText = optionsArray[opt];
+                                                    input.appendChild(optionElem);
+                                                }
+
+                                                let btn = document.createElement('button');
+                                                btn.setAttribute('id', prop + "_btn");
+                                                btn.innerText = "Add New";
+
+                                                div.appendChild(h4);
+                                                div.appendChild(desc);
+                                                div.appendChild(input);
+                                                div.appendChild(btn);
+                                                manifestedit.appendChild(div);
+                                                let ref = obj;
+                                                let propname = prop;
+                                                btn.addEventListener('click', function (event) {
+                                                    // Adds a new key/value pair to the object
+                                                    // and creates readonly input fields to display
+                                                    // them, with a Remove button to remove the item.
+                                                    // console.log(ref);
+                                                    // console.log(propname);
+                                                    // console.log(parent);
+                                                    // console.log(input.value);
+                                                    let installmodesarray = ref[propname];
+                                                    installmodesarray.push(input.value);
+                                                    //ref[propname][input.value] = input2.value;
+                                                    let i1 = document.createElement('input');
+                                                    i1.type = "text";
+                                                    i1.value = input.value;
+                                                    i1.setAttribute('readonly', 'true');
+
+                                                    let d2 = document.createElement('div');
+                                                    let b2 = document.createElement('button');
+                                                    b2.innerText = "Remove";
+
+                                                    d2.append(i1);
+                                                    d2.append(b2);
+                                                    // b2's reference to input.value will change when adding a new item.
+                                                    // Save the value to the dataset.iv property so we can use it as key
+                                                    // when deleting a property from an object.
+                                                    //b2.dataset.propname = propname;
+                                                    //b2.dataset.iv = input.value;
+                                                    b2.propname = propname; // do this instead so not visible in DOM
+                                                    b2.iv = input.value;
+                                                    b2.addEventListener('click', (e) => {
+                                                        //console.log(propname);
+                                                        //console.log(input.value);
+                                                        //console.log(e.target.iv);
+                                                        //delete ref[e.target.propname][e.target.iv];
+                                                        d2.remove();
+                                                        //let idx_removes = [];
+                                                        for (let i = 0; i < ref[e.target.propname].length; i++) {
+                                                            if (ref[e.target.propname][i] == e.target.iv) {
+                                                                //idx_removes.push(i);
+                                                                ref[e.target.propname].splice(i, 1);
+                                                            }
+                                                        }
+                                                        //for()
+                                                        console.log(currentmanifest);
+                                                    });
+                                                    h4.insertAdjacentElement('afterend', d2);
+                                                    console.log(currentmanifest);
+                                                    input.value = "";
+                                                });
+                                            }
                                         }
                                         else {
-                                            // no keys found so we create a pair of input fields
-                                            // to add a new key and value
-                                            let div = document.createElement('div');
-                                            div.setAttribute('class', 'itempanel');
-                                            let h4 = document.createElement('h4');
-                                            h4.innerText = prop;
-                                            let input = document.createElement('input');
-                                            input.type = "text";
-                                            input.value = "";
-                                            let text = document.createTextNode(" : ");
-                                            let input2 = document.createElement('input');
-                                            input2.type = "text";
-                                            input2.value = "";
-                                            let btn = document.createElement('button');
-                                            btn.setAttribute('id', prop + "_btn");
-                                            btn.innerText = "Add New";
-                                            div.appendChild(h4);
-                                            div.appendChild(input);
-                                            div.appendChild(text);
-                                            div.appendChild(input2);
-                                            div.appendChild(btn);
-                                            manifestedit.appendChild(div);
-                                            let ref = obj;
-                                            let propname = prop;
-                                            btn.addEventListener('click', function (event) {
-                                                // Adds a new key/value pair to the object
-                                                // and creates readonly input fields to display
-                                                // them, with a Remove button to remove the item.
-                                                // console.log(ref);
-                                                // console.log(propname);
-                                                // console.log(parent);
-                                                // console.log(input.value);
-                                                ref[propname][input.value] = input2.value;
-                                                let i1 = document.createElement('input');
-                                                i1.type = "text";
-                                                i1.value = input.value;
-                                                i1.setAttribute('readonly', 'true');
-                                                let i2 = document.createElement('input');
-                                                i2.type = "text";
-                                                i2.value = input2.value;
-                                                i2.setAttribute('readonly', 'true');
-                                                let d2 = document.createElement('div');
-                                                let t2 = document.createTextNode(" : ");
-                                                let b2 = document.createElement('button');
-                                                b2.innerText = "Remove";
-                                                d2.append(i1);
-                                                d2.append(t2);
-                                                d2.append(i2);
-                                                d2.append(b2);
-                                                // b2's reference to input.value will change when adding a new item.
-                                                // Save the value to the dataset.iv property so we can use it as key
-                                                // when deleting a property from an object.
-                                                //b2.dataset.propname = propname;
-                                                //b2.dataset.iv = input.value;
-                                                b2.propname = propname; // do this instead so not visible in DOM
-                                                b2.iv = input.value;
-                                                b2.addEventListener('click', (e) => {
-                                                    //console.log(propname);
-                                                    //console.log(input.value);
-                                                    //console.log(e.target.iv);
-                                                    delete ref[e.target.propname][e.target.iv];
-                                                    d2.remove();
-                                                    console.log(currentmanifest);
-                                                });
-                                                h4.insertAdjacentElement('afterend', d2);
-                                                console.log(currentmanifest);
-                                                input.value = "";
+                                            if(prop == "InstallerSwitches") {
+                                                // no keys found so we create a pair of input fields
+                                                // to add a new key and value
+                                                let div = document.createElement('div');
+                                                div.setAttribute('class', 'itempanel');
+                                                let h4 = document.createElement('h4');
+                                                h4.innerText = prop;
+                                                let desc = document.createElement('div');
+                                                desc.innerText = "Installer command line switches (example: /qn /quiet).";
+                                                let input = document.createElement('select');
+                                                let optionsArray = [
+                                                    "",
+                                                    "Silent",
+                                                    "SilentWithProgress",
+                                                    "Interactive",
+                                                    "InstallLocation",
+                                                    "Log",
+                                                    "Upgrade",
+                                                    "Custom",
+                                                ]
+                                                for(let opt in optionsArray) {
+                                                    let optionElem = document.createElement('option');
+                                                    optionElem.value = optionsArray[opt];
+                                                    optionElem.innerText = optionsArray[opt];
+                                                    input.appendChild(optionElem);
+                                                }
+                                                let text = document.createTextNode(" : ");
+                                                let input2 = document.createElement('input');
+                                                input2.type = "text";
                                                 input2.value = "";
-                                            });
+                                                let btn = document.createElement('button');
+                                                btn.setAttribute('id', prop + "_btn");
+                                                btn.innerText = "Add New";
+                                                div.appendChild(h4);
+                                                div.appendChild(desc);
+                                                div.appendChild(input);
+                                                div.appendChild(text);
+                                                div.appendChild(input2);
+                                                div.appendChild(btn);
+                                                manifestedit.appendChild(div);
+                                                let ref = obj;
+                                                let propname = prop;
+                                                btn.addEventListener('click', function (event) {
+                                                    // Adds a new key/value pair to the object
+                                                    // and creates readonly input fields to display
+                                                    // them, with a Remove button to remove the item.
+                                                    // console.log(ref);
+                                                    // console.log(propname);
+                                                    // console.log(parent);
+                                                    // console.log(input.value);
+                                                    ref[propname][input.value] = input2.value;
+                                                    let i1 = document.createElement('input');
+                                                    i1.type = "text";
+                                                    i1.value = input.value;
+                                                    i1.setAttribute('readonly', 'true');
+                                                    let i2 = document.createElement('input');
+                                                    i2.type = "text";
+                                                    i2.value = input2.value;
+                                                    i2.setAttribute('readonly', 'true');
+                                                    let d2 = document.createElement('div');
+                                                    let t2 = document.createTextNode(" : ");
+                                                    let b2 = document.createElement('button');
+                                                    b2.innerText = "Remove";
+                                                    d2.append(i1);
+                                                    d2.append(t2);
+                                                    d2.append(i2);
+                                                    d2.append(b2);
+                                                    // b2's reference to input.value will change when adding a new item.
+                                                    // Save the value to the dataset.iv property so we can use it as key
+                                                    // when deleting a property from an object.
+                                                    //b2.dataset.propname = propname;
+                                                    //b2.dataset.iv = input.value;
+                                                    b2.propname = propname; // do this instead so not visible in DOM
+                                                    b2.iv = input.value;
+                                                    b2.addEventListener('click', (e) => {
+                                                        //console.log(propname);
+                                                        //console.log(input.value);
+                                                        //console.log(e.target.iv);
+                                                        delete ref[e.target.propname][e.target.iv];
+                                                        d2.remove();
+                                                        console.log(currentmanifest);
+                                                    });
+                                                    h4.insertAdjacentElement('afterend', d2);
+                                                    console.log(currentmanifest);
+                                                    input.value = "";
+                                                    input2.value = "";
+                                                });
+                                            }
                                         }
                                     }
                                 }
@@ -925,6 +1077,7 @@
                                     alert("PackageManifest added to repository.");
                                     manifestedit.innerHTML = "";
                                     currentmanifest = null;
+                                    _getpackages();
                                 }
                             });
                             let ctrlpanel = document.createElement('div');
